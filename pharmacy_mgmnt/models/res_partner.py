@@ -1,76 +1,28 @@
 from openerp import models, fields, api
+from openerp import models, fields, api, tools, _
 
 
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+class CusArea(models.Model):
+    _name = 'customer.area'
+    _rec_name = 'cus_area'
 
-    def get_year(self):
-        year = self.env['account.fiscalyear'].search([('state','=','draft')])
-        if year:
-            return year
+    cus_area = fields.Char(string="Customer Area")
 
-    local_customer = fields.Boolean("Local Customer", default=True)
-    interstate_customer = fields.Boolean("Interstate Customer")
-    b2b = fields.Boolean("B2B")
-    b2c = fields.Boolean("B2C", default=True)
-    bill_nature = fields.Selection([('gst', 'GST'), ('igst', 'IGST')], default='gst', compute='compute_bill')
-    doctor_name = fields.Many2one('res.partner', 'Doctor Name')
-    doctor_name_1 = fields.Char('Doctor Name')
 
-    res_person = fields.Many2one('res.partner', string="Responsible Person")
-    address_new = fields.Text('Address', related="partner_id.address_new")
-    financial_year = fields.Many2one('account.fiscalyear', 'Financial Year', default=get_year)
-    inv_sup_no = fields.Char('Invoice No')
-    inv_amount = fields.Float('Invoice Amount')
+class CustomerTypes(models.Model):
+    _name = 'customer.title'
+    _rec_name = 'cus_type'
 
-    # @api.onchange('partner_id')
-    # def onchange_address_id(self):
-    #
-    #     pass
-
-    # @api.onchange('b2b')
-    # def onchange_b2b(self):
-    #     for rec in self:
-    #         if rec.b2b:
-
-    @api.depends('interstate_customer', 'local_customer')
-    def compute_bill(self):
-        for rec in self:
-            if rec.local_customer:
-                rec.bill_nature = 'gst'
-            if rec.interstate_customer:
-                rec.bill_nature = 'igst'
-
-    @api.multi
-    def tree_stock(self):
-        print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-        return {
-            'name': 'stock tree',
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'entry.stock',
-            'type': 'ir.actions.act_window',
-
-            'search_view_id': self.env.ref('pharmacy_mgmnt.stock_search_view').id
-        }
-
-    @api.multi
-    def wiz_tree(self):
-        print("9999999999999999999999999999")
-        return {
-            'context': self.env.context,
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'entry.stock',
-            'res_id': self.id,
-            'view_id': False,
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-        }
+    cus_type = fields.Char(string="Customer Type")
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+
+
+    cus_title = fields.Many2one('customer.title', "Customer Type")
+    cust_area = fields.Many2one('customer.area', "Customer Area")
+
 
     # @api.multi
     @api.depends('gst_no')
@@ -82,18 +34,12 @@ class ResPartner(models.Model):
             else:
                 rec.b2c = True
                 rec.b2b = False
-            # students = self.env['<_name>'].search([('id', '!=', self.id)])
-            # for student in students:
-            #     student.default_selected_student = False
 
     local_customer = fields.Boolean(default=True)
     interstate_customer = fields.Boolean()
     b2b = fields.Boolean(compute="_change_boolean_status")
-    # calc = fields.Float(compute="_change_boolean_status")
-    # b2b = fields.Boolean()
     b2c = fields.Boolean()
     gst_no = fields.Char()
-
     drug_license_number = fields.Char()
     address_new = fields.Text('Address')
     res_person_id = fields.Boolean('Sale Responsible Person ?')
@@ -115,3 +61,29 @@ class ResPartner(models.Model):
             'target': 'current',
             'domain': domain,
         }
+
+
+# GROUPS AND RESTRICTIONS
+
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    hide_menu_access_ids = fields.Many2many('ir.ui.menu', 'ir_ui_hide_menu_rel', 'uid', 'menu_id',
+                                            string='Hide Access Menu')
+
+
+class Menu(models.Model):
+    _inherit = 'ir.ui.menu'
+
+    @api.model
+    @tools.ormcache('frozenset(self.env.user.groups_id.ids)', 'debug')
+    def _visible_menu_ids(self, debug=False):
+        menus = super(Menu, self)._visible_menu_ids(debug)
+        if self.env.user.hide_menu_access_ids and not self.env.user.has_group('base.group_system'):
+            for rec in self.env.user.hide_menu_access_ids:
+                menus.discard(rec.id)
+            return menus
+        return menus
+
+
+

@@ -6,13 +6,6 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-<!--            <xpath expr="//header" position="inside">-->
-<!--                <button name="action_stock_transfer" string="Transfer" type="object"  class="oe_highlight"-->
-<!--                      attrs="{'invisible':['|',('state', '=', 'draft'),('picking_count', '=', 1)]}"/>-->
-<!--                <button name="create" string="Dulicate Invoice" type="object"  class="oe_highlight"-->
-<!--                      attrs="{'invisible':['|',('state', '=', 'draft'),('picking_count', '=', 1)]}"/>-->
-<!--            </xpath>-->
-
 
             <xpath expr="//field[@name='date_due']" position="after">
                 <field name="picking_transfer_id"/>
@@ -39,23 +32,6 @@
                 <xpath expr="//field[@name='invoice_line']" position="attributes">
                      <attribute name="attrs">{'readonly':[('state', 'not in', ['draft','packing_slip','holding_invoice'])]}</attribute>
                 </xpath>
-
-
-
-<!--            <xpath expr="//header" position="inside">-->
-<!--                <div class="oe_button_box" name="button_box">-->
-<!--                    <button type="object"-->
-<!--                        name="action_view_picking" states="open,paid"-->
-<!--                        class="oe_stat_button" attrs="{'invisible':[('origin', '!=', False)]}"-->
-<!--                        icon="fa-truck">-->
-<!--                        <field name="picking_count"  string="Shipment" widget="statinfo"/>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </xpath>-->
-
-<!--            <xpath expr="//button[@string='Print']" position="attributes">-->
-<!--                <attribute name="attrs">{'invisible':['|',('sent','=',True), ('state', 'not in', ['open','paid'])]}</attribute>-->
-<!--            </xpath>-->
 
             <xpath expr="//field[@name='price_subtotal']" position="after">
 <!--                    <field name="rate_amtc"/>-->
@@ -94,36 +70,7 @@
                 <xpath expr="//button[@name='invoice_open']" position="after">
                     <button name="invoice_print" string="Print Invoice" type="object" class="oe_highlight" attrs="{'invisible':[('type','!=','in_invoice')]}" />
                 </xpath>
-<!--                                   <xpath expr="//page[1]/group" position="replace">-->
 
-
-<!--                                            <group class="oe_subtotal_footer oe_right">-->
-<!--                                <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
-<!--                                <div>-->
-<!--                                    <label for="amount_tax_custom"/>-->
-<!--&lt;!&ndash;                                    <button name="button_reset_taxes" states="draft,proforma2"&ndash;&gt;-->
-<!--&lt;!&ndash;                                        string="(update)" class="oe_link oe_edit_only"&ndash;&gt;-->
-<!--&lt;!&ndash;                                        type="object" help="Recompute taxes and total"/>&ndash;&gt;-->
-<!--                                </div>-->
-<!--                                <field name="amount_tax_custom" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
-<!--                                <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
-
-<!--                                <field name="residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
-<!--                                <field name="reconciled" invisible="1"/>-->
-<!--                            </group>-->
-
-<!--                                   </xpath>-->
-
-
-
-
-<!--                   <xpath expr="//field[@name='amount_tax']" position="replace">-->
-<!--                       <field name="amount_tax_custom" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
-<!--                </xpath>-->
-
-<!--                <xpath expr="//field[@name='invoice_line']/tree/field[@name='discount']" position="attributes">-->
-<!--                    <attribute name="invisible">1</attribute>-->
-<!--                </xpath>-->
                 <xpath expr="//field[@name='price_subtotal']" position="after">
                     <field name="invoice_line_tax_id4"/>
                 </xpath>
@@ -137,16 +84,9 @@
                     <field name="grand_total" invisible="1"/>
                 </xpath>
                  <xpath expr="//field[@name='amount_w_tax']" position="after">
-<!--                         <field name="manf_date"/>-->
-<!--                         <field name="expiry_date"/>-->
-<!--                         <field name="expiry_date1"/>-->
                          <field name="medicine_rack"/>
                          <field name="hsn_code"/>
                 </xpath>
-<!--                <xpath expr="//field[@name='batch_2']" position="after">-->
-<!--                         <field name="manf_date"/>-->
-<!--                         <field name="expiry_date"/>-->
-<!--                </xpath>-->
                 <xpath expr="//field[@name='tax_line']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -168,14 +108,10 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
-<!--                <xpath expr="//header" position="inside">-->
-<!--                    <button name="action_stock_receive" string="Receive"  class="oe_highlight"-->
-<!--                            type="object"   attrs="{'invisible':['|',('state', '=', 'draft'),('picking_count', '=', 1)]}"/>-->
+<!--                <xpath expr="//field[@name='financial_year']" position="after">-->
+<!--                    <field name="picking_type_id"/>-->
+<!--                    <field name="invoice_picking_id" invisible="1"/>-->
 <!--                </xpath>-->
-                <xpath expr="//field[@name='date_due']" position="after">
-                    <field name="picking_type_id"/>
-                    <field name="invoice_picking_id" invisible="1"/>
-                </xpath>
                 <xpath  expr="//header" position="inside">
                     <div class="oe_button_box" name="button_box">
                         <button type="object"

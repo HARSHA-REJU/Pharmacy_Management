@@ -10,7 +10,7 @@ class CustomerInvoiceHistoryTree(models.TransientModel):
     date_from = fields.Date('Date From')
     date_to = fields.Date('Date To')
     financial_year = fields.Many2one('account.fiscalyear','Financial Year')
-    invoices_id = fields.Many2one('account.invoice', 'Invoice No')
+    invoices_id = fields.Many2one('account.invoice', 'Invoice No',_rec_name="number2")
     # bill_no = fields.Char('Bill Number')
 
     @api.multi

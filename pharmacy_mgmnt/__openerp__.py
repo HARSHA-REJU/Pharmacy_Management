@@ -16,7 +16,8 @@
     'data': [
 'security/security.xml',
              'security/ir.model.access.csv',
-             'views/menu.xml',
+        'views/res_partner_views.xml',
+        'views/menu.xml',
              'views/rack_transfer.xml',
              'views/partial_transfer.xml',
              'views/credit_limit.xml',
@@ -29,7 +30,6 @@
              'report/customer_inv_report.xml',
              'report/supplier_inv_report.xml',
              'report/pending_invoice_report.xml',
-             'report/sale_report.xml',
              'report/customer_inv_history.xml',
              'report/supplier_inv_history.xml',
              'report/purchase_report.xml',
@@ -37,15 +37,10 @@
              'report/inherit_supplier_invoice_report.xml',
 
              'report/packing_holding_history.xml',
-        'views/res_partner_views.xml',
         'report/tax_report_view.xml',
         'report/tax_report_excel.xml',
-        'views/sale_view.xml',
         'views/account_invoice_view.xml',
         'views/invoice_report.xml',
-        'views/sale_order_report.xml',
-        'views/sale_discount_approval_view.xml',
-        'views/sale_discount_approval_workflow.xml'
 
     ],
     'qweb': [

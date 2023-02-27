@@ -6,19 +6,7 @@
             <field name="arch" type="xml">
                 <form string="Medicine Stock Entry">
                     <sheet>
-                        <script>
-<!--            $(document).ready(function(){-->
-<!--                $('.modal-dialog').css({'width': '97%', 'height': '97%'});-->
-<!--                $('.modal-content').css({'height': '100%'});-->
-<!--                $('.modal-body').css({'height': '100%'});-->
-<!--            });-->
-        </script>
-<!--                        <script>-->
-<!--                $(document).ready(function(){-->
-<!--                    $('.ui-dialog').css({'width': '1000px'});-->
-<!--                    $('.oe_form_sheet_width').css({'MAXwidth': '900px'});-->
-<!--                    });-->
-<!--            </script>-->
+
                      <center><H1>Transfer Stock</H1></center><br/>
                         <group>
                         <group>
@@ -47,45 +35,8 @@
                                      <field name="batch_2"/>
                                 </tree>
                            </field></group><group>
-<!--                                   <field name="stock_full_id" style="width: 20%" >-->
-<!--                                  <tree editable="bottom">-->
-<!--                                     <field name="qty" type="char"/>-->
-<!--                                     <field name="medicine_1"/>-->
-<!--                                     <field name="potency"/>-->
-<!--                                     <field name="medicine_name_packing"/>-->
-<!--                                     <field name="company"/>-->
-<!--                                     <field name="batch_2"/>-->
-<!--                                </tree>-->
-<!--                           </field>-->
                                </group>
                                </group>
-
-<!--                              <group>-->
-<!--                                <group col="2" align="left">-->
-<!--                                <group>-->
-<!--                                    <field name="stock_full_id" style="width: 20%" >-->
-<!--                                  <tree editable="bottom">-->
-<!--                                     <field name="qty" type="char"/>-->
-<!--                                     <field name="medicine_1"/>-->
-<!--                                     <field name="potency"/>-->
-<!--                                     <field name="medicine_name_packing"/>-->
-<!--                                     <field name="company"/>-->
-<!--                                     <field name="batch_2"/>-->
-<!--                                </tree>-->
-<!--                           </field>-->
-<!--                                </group>-->
-<!--                                    <group>-->
-<!--                                    <field name="stock_full_id" style="pointer-events:none;">-->
-<!--                                <tree editable="bottom">-->
-<!--                                     <field name="qty" type="char"/>-->
-<!--                                     <field name="medicine_1"/>-->
-<!--                                     <field name="potency"/>-->
-<!--                                     <field name="medicine_name_packing"/>-->
-<!--                                     <field name="company"/>-->
-<!--                                     <field name="batch_2"/>-->
-<!--                                </tree>-->
-<!--                                    </field></group></group>                        </group>-->
-
                                 </div>
                             </group>
                         </page>
@@ -93,28 +44,8 @@
 
                            <group col="2">
                            <group>
-<!--                               <field name="stock_full_id" >-->
-<!--                                <tree editable="bottom">-->
-<!--                                     <field name="qty" type="char"/>-->
-<!--                                     <field name="medicine_1"/>-->
-<!--                                     <field name="potency"/>-->
-<!--                                     <field name="medicine_name_packing"/>-->
-<!--                                     <field name="company"/>-->
-<!--                                     <field name="batch_2"/>-->
-<!--                                </tree>-->
-<!--                            </field>-->
                            </group>
                            <group>
-<!--                            <field name="stock_full_id" >-->
-<!--                                <tree editable="bottom">-->
-<!--                                     <field name="qty" type="char"/>-->
-<!--                                     <field name="medicine_1"/>-->
-<!--                                     <field name="potency"/>-->
-<!--                                     <field name="medicine_name_packing"/>-->
-<!--                                     <field name="company"/>-->
-<!--                                     <field name="batch_2"/>-->
-<!--                                </tree>-->
-<!--                            </field>-->
                             </group>
                            </group>
 

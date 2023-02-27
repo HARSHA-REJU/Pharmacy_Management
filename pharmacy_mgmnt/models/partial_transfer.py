@@ -108,7 +108,3 @@ class PartTranserNew1(models.TransientModel):
     full_id1 = fields.Many2one('partial.transf', string='Stock')
     qty_transfer = fields.Char('Transfer_Qty')
     entry_stock_id = fields.Many2one('entry.stock')
-
-#
-
-#

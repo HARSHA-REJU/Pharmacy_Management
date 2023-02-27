@@ -56,29 +56,6 @@
                     <!--</t>-->
                 </t>
             </xpath>
-            <!--<xpath expr="//div[@class='col-xs-4 pull-right']" position="before">-->
-                <!--<t t-if="o.type=='out_invoice' or o.type=='out_refund'">-->
-                    <!--<div class="col-xs-4">-->
-                        <!--<t t-if="o.discount_rate">-->
-                        <!--<table class="table table-condensed">-->
-                            <!--<tr class="border-black">-->
-                                <!--<td>Discount Type</td>-->
-                                <!--<td class="text-right">-->
-                                    <!--<span t-field="o.discount_type"/>-->
-                                <!--</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Discount rate</td>-->
-                                <!--<td class="text-right">-->
-                                    <!--<span t-field="o.discount_rate"/>-->
-                                <!--</td>-->
-                            <!--</tr>-->
-                            <!--<tr class="border-black"></tr>-->
-                        <!--</table>-->
-                        <!--</t>-->
-                    <!--</div>-->
-                <!--</t>-->
-            <!--</xpath>-->
         </template>
     </data>
 </openerp>

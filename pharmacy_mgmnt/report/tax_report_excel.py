@@ -53,31 +53,7 @@ class TaxReport(ReportXlsx):
         align_format = workbook.add_format({
             'align': 'right',
         })
-        #
-        # row = 7
-        # row = 0
-        # new_row = row
-        inv = lines
-        # print "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", inv
-        # worksheet.set_column('B:B', 20)
-        # worksheet.set_column('D:D', 20)
-        # worksheet.set_row('2', boldc)
-        # worksheet.set_row(2, 50)
-        # month = datetime.strptime(inv[0].from_date, "%Y-%m-%d").month
-        # if month == 2:
-        #     if (datetime.strptime(inv[0].from_date, "%Y-%m-%d").year % 4 == 0):
-        #         worksheet.set_column('D:AF', 2)
-        #     else:
-        #         worksheet.set_column('D:AE', 2)
-        #
-        # elif month in [1, 3, 5, 7, 8, 10, 12]:
-        #     worksheet.set_column('D:AH', 2)
-        #
-        # else:
-        #     worksheet.set_column('D:AG', 2)
-        # worksheet.write('A%s' % (new_row), sl_no)
 
-        # worksheet.merge_range('A1:B1', "Attendance Report", boldc)
 
         inv = lines
         worksheet.merge_range('A1:E1', "TRAVANCORE HOMEO_1 MEDICALS, GSTIN :32AYAPS1856Q1ZY", heading_format)

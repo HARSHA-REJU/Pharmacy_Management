@@ -38,9 +38,6 @@
                             <field name="amount_discount" widget='monetary' options="{'currency_field': 'currency_id'}" string="Discount Total"/>
                             <div>
                                 <label for="amount_tax_custom"/>
-<!--                                <button name="button_reset_taxes" states="draft,proforma2"-->
-<!--                                        string="(update)" class="oe_link oe_edit_only"-->
-<!--                                        type="object" help="Recompute taxes and total"/>-->
                             </div>
                             <field name="amount_tax_custom" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
@@ -62,10 +59,6 @@
                 <xpath expr="//field[@name='discount']" position="attributes">
                      <attribute name="readonly">0</attribute>
                 </xpath>
-<!--                <xpath expr="//field[@name='batch_2']" position="attributes">-->
-<!--                     <attribute name="readonly">0</attribute>-->
-<!--                </xpath>-->
-
 
                 <xpath expr="//group[@class='oe_subtotal_footer oe_right']" position="replace">
                     <group col="4">
@@ -79,9 +72,6 @@
                             <field name="amount_discount" widget='monetary' options="{'currency_field': 'currency_id'}" string="Discount Total"/>
                             <div>
                                 <label for="amount_tax"/>
-<!--                                <button name="button_reset_taxes" states="draft,proforma2"-->
-<!--                                        string="(update)" class="oe_link oe_edit_only"-->
-<!--                                        type="object" help="Recompute taxes and total"/>-->
                             </div>
                             <field name="amount_tax" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>

@@ -24,13 +24,13 @@ class StockProductionLot(models.Model):
     batch_2 = fields.Many2one('med.batch', "Batch")
     rack = fields.Many2one('product.medicine.types', 'Rack')
     qty = fields.Float('Stock')
-    racks_id = fields.Many2one('med.rack', string='Racks')
+    # racks_id = fields.Many2one('med.rack', string='Racks')
     company = fields.Many2one('product.medicine.responsible', 'Company')
     mrp = fields.Float('Mrp')
     # expiry_date = fields.Date(string='EXP')
     # manf_date = fields.Date(string='MFD')
     medicine_name_packing = fields.Many2one('product.medicine.packing', 'Packing', )
-    racks_id = fields.Many2one('med.rack', string='Racks')
+    # racks_id = fields.Many2one('med.rack', string='Racks')
 
     @api.model
     def create(self, vals):

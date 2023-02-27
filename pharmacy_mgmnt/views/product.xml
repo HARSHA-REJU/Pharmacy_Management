@@ -37,7 +37,7 @@
 
                         <field name="hsn_code" invisible="1"/>
                         <field name="medicine_rack" invisible="1"/>
-                        <field name="tax_combo" invisible="1"/>
+<!--                        <field name="tax_combo" invisible="1"/>-->
 <!--                        <field name="tax_ids"/>-->
 
 

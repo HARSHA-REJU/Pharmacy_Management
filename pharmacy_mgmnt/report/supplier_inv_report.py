@@ -1,5 +1,4 @@
 from openerp import models, fields, api, _
-from openerp import tools, _
 from datetime import datetime, date, timedelta
 
 

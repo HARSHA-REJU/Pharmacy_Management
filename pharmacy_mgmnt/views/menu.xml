@@ -109,16 +109,6 @@
                         <group>
                             <group></group>
                         </group>
-
-
-
-
-<!--                                    <field name="medicine" invisible="1"/>-->
-
-
-
-
-
                     </sheet>
                 </form>
             </field>
@@ -184,84 +174,84 @@
 
             </field>
         </record>
-<record model="ir.ui.view" id="search_med_rack_loc_id">
-            <field name="name">Medicine Rack Stock Entry</field>
-            <field name="model">rack.batch</field>
-            <field name="arch" type="xml">
-                <form string="Medicine Rack Stock Entry">
-                    <group>
-<!--                             <field name="medicine"/>-->
-                             <field name="potency"/>
-                             <field name="medicine_name_packing"/>
-                             <field name="batch" invisible="1"/>
-                             <field name="batch_2"/>
-                             <field name="company"/>
-                        </group>
-                    <group>
-                        <field name="rack"/>
-                        <field name="qty"/>
-                        <field name="mrp"/>
-                    </group>
-                    <group>
-                        <field name="manf_date"/>
-                        <field name="expiry_date"/>
-                    </group>
-                </form>
-            </field>
-</record>
-         <record model="ir.ui.view" id="search_med_rack_loc">
-            <field name="name">Medicine Rack Stock Entry</field>
-            <field name="model">med.rack</field>
-            <field name="arch" type="xml">
-                <form string="Medicine Rack">
-                    <sheet>
-                     <center><H1>Medicine Rack Stock Entry</H1></center>
-                        <group>
-                           <field name="rack"/>
-                        </group>
-                        <notebook><page string="Medicines">
-                            <field name="racks">
-                                <tree editable="bottom">
-                                    <field name="product_id"/>
-<!--                                    <field name="medicine" invisible="1"/>-->
-                                     <field name="potency"/>
-                                    <field name="medicine_name_packing"/>
-                                     <field name="company"/>
-                                     <field name="batch" invisible="1"/>
-                                     <field name="batch_2"/>
-                                     <field name="mrp" type="char"/>
-                                    <field name="qty" type="char"/>
-                                    <field name="manf_date"/>
-                                    <field name="expiry_date"/>
-                                </tree>
-                            </field></page></notebook>
-                    </sheet>
+<!--<record model="ir.ui.view" id="search_med_rack_loc_id">-->
+<!--            <field name="name">Medicine Rack Stock Entry</field>-->
+<!--            <field name="model">rack.batch</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Medicine Rack Stock Entry">-->
+<!--                    <group>-->
+<!--&lt;!&ndash;                             <field name="medicine"/>&ndash;&gt;-->
+<!--                             <field name="potency"/>-->
+<!--                             <field name="medicine_name_packing"/>-->
+<!--                             <field name="batch" invisible="1"/>-->
+<!--                             <field name="batch_2"/>-->
+<!--                             <field name="company"/>-->
+<!--                        </group>-->
+<!--                    <group>-->
+<!--                        <field name="rack"/>-->
+<!--                        <field name="qty"/>-->
+<!--                        <field name="mrp"/>-->
+<!--                    </group>-->
+<!--                    <group>-->
+<!--                        <field name="manf_date"/>-->
+<!--                        <field name="expiry_date"/>-->
+<!--                    </group>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--</record>-->
+<!--         <record model="ir.ui.view" id="search_med_rack_loc">-->
+<!--            <field name="name">Medicine Rack Stock Entry</field>-->
+<!--            <field name="model">med.rack</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Medicine Rack">-->
+<!--                    <sheet>-->
+<!--                     <center><H1>Medicine Rack Stock Entry</H1></center>-->
+<!--                        <group>-->
+<!--                           <field name="rack"/>-->
+<!--                        </group>-->
+<!--                        <notebook><page string="Medicines">-->
+<!--                            <field name="racks">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="product_id"/>-->
+<!--&lt;!&ndash;                                    <field name="medicine" invisible="1"/>&ndash;&gt;-->
+<!--                                     <field name="potency"/>-->
+<!--                                    <field name="medicine_name_packing"/>-->
+<!--                                     <field name="company"/>-->
+<!--                                     <field name="batch" invisible="1"/>-->
+<!--                                     <field name="batch_2"/>-->
+<!--                                     <field name="mrp" type="char"/>-->
+<!--                                    <field name="qty" type="char"/>-->
+<!--                                    <field name="manf_date"/>-->
+<!--                                    <field name="expiry_date"/>-->
+<!--                                </tree>-->
+<!--                            </field></page></notebook>-->
+<!--                    </sheet>-->
 
-                    <footer>
-<!--            <button special="cancel" string="Ok" class="oe_highlight" />-->
-          </footer>
+<!--                    <footer>-->
+<!--&lt;!&ndash;            <button special="cancel" string="Ok" class="oe_highlight" />&ndash;&gt;-->
+<!--          </footer>-->
 
-                </form>
-            </field>
-         </record>
+<!--                </form>-->
+<!--            </field>-->
+<!--         </record>-->
 
-        <record id="action_create_rack_return" model="ir.actions.act_window">
-            <field name="name">Medicine Rack Stock Entry</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">med.rack</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="search_med_rack_loc"/>
-            <field name="target">new</field>
-        </record>
-
-        <record id="action_create_rack_return_1" model="ir.actions.act_window">
-            <field name="name">Medicine Rack Stock Entry</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">med.rack</field>
-            <field name="view_mode">tree,form</field>
+<!--        <record id="action_create_rack_return" model="ir.actions.act_window">-->
+<!--            <field name="name">Medicine Rack Stock Entry</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">med.rack</field>-->
+<!--            <field name="view_mode">form</field>-->
 <!--            <field name="view_id" ref="search_med_rack_loc"/>-->
 <!--            <field name="target">new</field>-->
-        </record>
+<!--        </record>-->
+
+<!--        <record id="action_create_rack_return_1" model="ir.actions.act_window">-->
+<!--            <field name="name">Medicine Rack Stock Entry</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">med.rack</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--&lt;!&ndash;            <field name="view_id" ref="search_med_rack_loc"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <field name="target">new</field>&ndash;&gt;-->
+<!--        </record>-->
 
          <record id="action_create_stock_return_1" model="ir.actions.act_window">
             <field name="name">Medicine Stock Entry</field>
@@ -310,17 +300,6 @@
             </field>
         </record>
 <!--        ########################################-->
-<!--        <record id="customer_invoice__move_view_id" model="ir.ui.view">-->
-<!--        <field name="name">Cus Invoice</field>-->
-<!--        <field name="model">account.invoice</field>-->
-<!--        <field name="inherit_id" ref="account.invoice_form"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//field[@name='partner_id']" position="after">-->
-<!--                <field name="cus_title_1"/>-->
-<!--            </xpath>-->
-
-<!--        </field>-->
-<!--        </record>-->
 <!--        #############################################-->
          <record id="action_invoice_tree1" model="ir.actions.act_window">
             <field name="name">Customer Invoices</field>
@@ -423,20 +402,10 @@
                         <font face = 'Tahoma' size = '3' color = 'ff6666'> <field name="product_of"/> </font>
                     </xpath>
 
+
             </field>
         </record>
-         <!--ADD FILTER MEDICINE TYPES-->
-<!--        <record id="product_template_search_view_inherited" model="ir.ui.view">-->
-<!--            <field name="name">product.template.form.inherited.new</field>-->
-<!--            <field name="model">product.template</field>-->
-<!--            <field name="inherit_id" ref="product.product_template_search_view" />-->
-<!--            <field name="arch" type="xml">-->
-<!--                    <xpath expr="//filter[@string='Type']" position="replace">-->
-<!--                        <filter string='Product Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}"/>-->
-<!--                        <filter string='Medicine Category' name="medicine_type"  domain="[]" context="{'group_by' : 'medicine_rack'}"/>-->
-<!--                    </xpath>-->
-<!--            </field>-->
-<!--        </record>-->
+
         <record id="action_stock_picking_med" model="ir.actions.act_window">
     <field name="name">Received Medicines</field>
     <field name="type">ir.actions.act_window</field>
@@ -494,17 +463,16 @@
                 <menuitem id="menu_med_features_1_child"
                           name="Supplier Invoices and Stock Entry"
                           sequence="1" parent="menu_med_features_1"/>
-                    <menuitem action="base.action_partner_supplier_form" id="menu_suppliers"
+                    <menuitem action="action_partner_supplier_form" id="menu_suppliers"
                               name="Suppliers"
                               sequence="1" parent="menu_med_features_1_child"/>
 
                     <menuitem action="action_invoice_tree2" id="menu_supplier_invoices"
                               name="Supplier Invoices"
                               sequence="2" parent="menu_med_features_1_child"/>
-<!--                    <menuitem action="action_stock_picking_med" id="menu_pdt_incoming"-->
-<!--                              name="Medicines Received"-->
-<!--                              sequence="3" parent="menu_med_features_1_child"/>-->
-<!--TRANSACTION MENUS and ACTIONS AND VIEW-->
+
+
+        <!--TRANSACTION MENUS and ACTIONS AND VIEW-->
 
 
         <record id="sequence_type_cheque_lot" model="ir.sequence.type">
@@ -716,50 +684,50 @@
 
 <!--        tax combo-->
 
-        <record model="ir.ui.view" id="cheque_tax_combo_conf_details_view_form">
-            <field name="name">Medicines Tax Combinations</field>
-            <field name="model">tax.combo</field>
-            <field name="arch" type="xml">
-                <form string="Tax Configuration Details">
-                    <sheet>
-                     <center><H1>Group Configuration</H1></center>
-                        <group col="4">
-                        <group>
-                             <field name="medicine_grp" style="width:50%%"/>
-<!--                            <field name="combo_name" style="width:50%%" />-->
-<!--                        <field name="product"/>-->
-                        <field name="medicine_name_subcat"/>
-<!--                        <field name="medicine_name_subcat1"/>-->
-                        <field name="hsn"/>
-<!--                        <field name="company"/>-->
-                        <field name="tax_cat"/>
-                        <field name="tax_rate"/>
+<!--        <record model="ir.ui.view" id="cheque_tax_combo_conf_details_view_form">-->
+<!--            <field name="name">Medicines Tax Combinations</field>-->
+<!--            <field name="model">tax.combo</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Tax Configuration Details">-->
+<!--                    <sheet>-->
+<!--                     <center><H1>Group Configuration</H1></center>-->
+<!--                        <group col="4">-->
+<!--                        <group>-->
+<!--                             <field name="medicine_grp" style="width:50%%"/>-->
+<!--&lt;!&ndash;                            <field name="combo_name" style="width:50%%" />&ndash;&gt;-->
+<!--&lt;!&ndash;                        <field name="product"/>&ndash;&gt;-->
+<!--                        <field name="medicine_name_subcat"/>-->
+<!--&lt;!&ndash;                        <field name="medicine_name_subcat1"/>&ndash;&gt;-->
+<!--                        <field name="hsn"/>-->
+<!--&lt;!&ndash;                        <field name="company"/>&ndash;&gt;-->
+<!--                        <field name="tax_cat"/>-->
+<!--                        <field name="tax_rate"/>-->
 
-                        </group>
-                        </group>
-                    </sheet>
-                </form>
+<!--                        </group>-->
+<!--                        </group>-->
+<!--                    </sheet>-->
+<!--                </form>-->
 
-            </field>
-        </record>
+<!--            </field>-->
+<!--        </record>-->
 
 
-         <record model="ir.ui.view" id="group_details_view_tree">
-                <field name="name">Group Configuration</field>
-                <field name="model">tax.combo</field>
-                <field name="type">tree</field>
-                <field name="arch" type="xml">
-                    <tree string="Group Configuration Details" version="7.0">
-                         <field name="medicine_grp" style="width:50%%"/>
-                        <field name="medicine_name_subcat"/>
-<!--                        <field name="medicine_name_subcat1"/>-->
-                        <field name="hsn"/>
-<!--                        <field name="company"/>-->
-                        <field name="tax_cat"/>
-                        <field name="tax_rate" type="char"/>
-                    </tree>
-                </field>
-        </record>
+<!--         <record model="ir.ui.view" id="group_details_view_tree">-->
+<!--                <field name="name">Group Configuration</field>-->
+<!--                <field name="model">tax.combo</field>-->
+<!--                <field name="type">tree</field>-->
+<!--                <field name="arch" type="xml">-->
+<!--                    <tree string="Group Configuration Details" version="7.0">-->
+<!--                         <field name="medicine_grp" style="width:50%%"/>-->
+<!--                        <field name="medicine_name_subcat"/>-->
+<!--&lt;!&ndash;                        <field name="medicine_name_subcat1"/>&ndash;&gt;-->
+<!--                        <field name="hsn"/>-->
+<!--&lt;!&ndash;                        <field name="company"/>&ndash;&gt;-->
+<!--                        <field name="tax_cat"/>-->
+<!--                        <field name="tax_rate" type="char"/>-->
+<!--                    </tree>-->
+<!--                </field>-->
+<!--        </record>-->
 
         <record model="ir.ui.view" id="group_details_view_form">
             <field name="name">Groups</field>
@@ -918,7 +886,7 @@
             <menuitem id="menu_med_features_2_child"
                       name="Customer Invoices and Stock Entry"
                       sequence="1" parent="menu_med_features_2"/>
-                    <menuitem action="base.action_partner_form" id="menu_customers"
+                    <menuitem action="action_partner_form" id="menu_customers"
                               name="Retailers/Customers"
                               sequence="1" parent="menu_med_features_2_child"/>
 
@@ -929,12 +897,6 @@
                               name="Medicines Transferred"
                               sequence="9" parent="menu_med_features_2_child"/>
 
-<!--        <menuitem  id="menu_med_features_status"-->
-<!--                  name="Medicine Status and Expiry"-->
-<!--                  sequence="3" parent="menu_med_main"/>-->
-<!--            <menuitem action="action_med_lot" id="menu_med_features_3"-->
-<!--                      name="Medicine Status and Expiry"-->
-<!--                      sequence="1" parent="menu_med_features_status"/>-->
         <menuitem id="menu_med_features_4"
                   name="Medicine Details"
                   sequence="4" parent="menu_med_main"/>
@@ -942,37 +904,14 @@
         <menuitem action="action_medicines"  id="menu_med_features_4_child"
                   name="Medicines"
                   sequence="1" parent="menu_med_features_4"/>
-<!--        <menuitem action="action_create_rack_return_1" id="menu_rack_find_med"-->
-<!--                              name="Medicine Racks and Stocks"-->
-<!--                              sequence="5" parent="menu_med_features_4"/>-->
-<!--         <menuitem  id="menu_product_stock_entry_id"-->
-<!--                  name="Stock Details"-->
-<!--                  sequence="8"/>-->
-<!--        <menuitem  id="menu_2"-->
-<!--                  name="Product Stock Entry" parent="menu_product_stock_entry_id"-->
-<!--                  />-->
-<!--         <menuitem  id="menu_3"-->
-<!--                  name="Product Stock Entry" parent="menu_2"-->
-<!--                  />-->
-<!--        <menuitem action="action_root_stock" id="menu_4"-->
-<!--                              name="Stock Entry"-->
-<!--                              parent="menu_3"/>-->
         <menuitem action="action_create_stock_return_1" id="menu_stock_find_med"
                               name="Product Stock Entry"
                               sequence="6" parent="menu_med_features_4"/>
-<!--        <menuitem action="action_create_stock_return_copy" id="menu_stock_find_med_copy"-->
-<!--                              name="Grp-Dis Copy"-->
-<!--                              sequence="7" parent="menu_med_features_4"/>-->
-<!--        -->
-
-
-
         <menuitem id="base.menu_purchase_root" name="Purchase" groups="make_invisible" />
         <menuitem id="stock.menu_stock_root" name="INVENTORY" groups="make_invisible_stock" />
         <menuitem id="base.menu_reporting"  name="Reports" groups="make_invisible_report"/>
         <menuitem id="account.menu_finance"  name="Accounts" groups="make_invisible_accounts"/>
         <menuitem id="base.menu_base_partner"  name="Sales" groups="make_invisible_sales"/>
-<!--        <menuitem id="portal_messages"  name="Chats" groups="make_invisible_msg"/>-->
 
 
         <record model="ir.ui.view" id="partner_payment_view_form">
@@ -1070,20 +1009,6 @@
             <field name="res_model">partner.payment</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-
-
-<!--        <record id="customer_invoice" model="ir.ui.view">-->
-<!--            <field name="name">Invoices</field>-->
-<!--            <field name="model">account.invoice</field>-->
-<!--            <field name="inherit_id" ref="account.invoice_form"/>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <xpath expr="//field[@name='date_invoice']" position="after">-->
-<!--                    <field name="packing_slip" invisible="1"/>-->
-<!--                    <field name="holding_invoice" invisible="1"/>-->
-<!--                </xpath>-->
-<!--            </field>-->
-<!--        </record>-->
 
         <record model="ir.ui.view" id="customer_inherit_tree">
             <field name="name">Invoice</field>

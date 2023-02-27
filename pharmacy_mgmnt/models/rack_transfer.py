@@ -79,7 +79,3 @@ class FullyTranserNew1(models.TransientModel):
     medicine_1 = fields.Many2one('product.product', string="Medicine")
     qty_received = fields.Float('Qty Transfer')
     full_id2 = fields.Many2one('rack.transferr2', string='Stock')
-
-#
-
-#
