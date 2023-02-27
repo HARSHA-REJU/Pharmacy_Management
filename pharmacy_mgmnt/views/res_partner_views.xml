@@ -128,7 +128,7 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('res_person_id','=',True)]</field>
         </record>
-        <menuitem action="action_inv_responsible" id="menu_customers"
+        <menuitem action="action_inv_responsible" id="menu_responsible_persons"
                               name="Responsible Persons-Sale"
                               sequence="2" parent="pharmacy_mgmnt.menu_med_features_2_child"/>
     </data>
