@@ -925,6 +925,8 @@ class AccountInvoice(models.Model):
         ('open', 'Open'),
         ('paid', 'Paid'),
         ('cancel', 'Cancelled'),
+        ('done', 'Received'),
+
     ], string='Status', index=True, readonly=True, default='draft',
         track_visibility='onchange', copy=False,
         help=" * The 'Draft' status is used when a user is encoding a new and unconfirmed Invoice.\n"
@@ -1439,16 +1441,6 @@ class AccountInvoice(models.Model):
     picking_transfer_id = fields.Many2one('stock.picking.type', 'Deliver To', required=True,
                                           default=_default_picking_transfer,
                                           help="This will determine picking type of outgoing shipment")
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('proforma', 'Pro-forma'),
-        ('proforma2', 'Pro-forma'),
-        ('open', 'Open'),
-        ('paid', 'Paid'),
-        ('cancel', 'Cancelled'),
-        ('done', 'Received'),
-    ], string='Status', index=True, readonly=True, default='draft',
-        track_visibility='onchange', copy=False)
 
     @api.multi
     def action_stock_receive(self):

@@ -270,12 +270,12 @@
 <!--            <field name="target">new</field>-->
         </record>
 
-         <record id="action_create_stock_return_copy" model="ir.actions.act_window">
-            <field name="name">Medicine Stock Entry</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">group.discount.copy</field>
-            <field name="view_mode">tree,search,form</field>
-         </record>
+<!--         <record id="action_create_stock_return_copy" model="ir.actions.act_window">-->
+<!--            <field name="name">Medicine Stock Entry</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">group.discount.copy</field>-->
+<!--            <field name="view_mode">tree,search,form</field>-->
+<!--         </record>-->
 <!--        ******************************END OF MEDICINE RACK WIZARD****************************-->
         <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
             <field name="name">Vendors</field>

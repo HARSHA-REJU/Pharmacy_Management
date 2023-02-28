@@ -1,4 +1,4 @@
-from openerp import models, fields, api, tools
+from openerp import models, fields, api, tools, _
 
 
 # ____________________________________________SUPPLIER DISCOUNTS________________________________________________________________________
@@ -83,6 +83,14 @@ class SupplierDiscounts1(models.Model):
         string='Set Discounts',
         store=True,
     )
+    
+    @api.onchange('supplier')
+    def supplier_onchange(self):
+        for rec in self:
+            if rec.supplier:
+                discounts = self.env['supplier.discounts'].search([('supplier','=',rec.supplier.id)])
+                return {'warning': {'title': _('Warning'), 'message': _(
+                    'Already created group wise discount for the supplier '  + rec.supplier.name + "/n If you want make any changes please edit it")}}
 
 
 class SupplierDiscounts2(models.Model):
@@ -96,6 +104,14 @@ class SupplierDiscounts2(models.Model):
         string='Set Discounts',
         store=True,
     )
+
+    @api.onchange('supplier')
+    def supplier_onchange(self):
+        for rec in self:
+            if rec.supplier:
+                discounts = self.env['supplier.discounts'].search([('supplier','=',rec.supplier.id)])
+                return {'warning': {'title': _('Warning'), 'message': _(
+                    'Already created product wise discount for the supplier '  + rec.supplier.name + ". If you want to make any changes please edit it")}}
 
 
 # class SetDiscount2(models.Model):

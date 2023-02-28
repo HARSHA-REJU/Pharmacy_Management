@@ -126,36 +126,36 @@
 <!--                </form>-->
 <!--            </field>-->
 <!--        </record>-->
-<!--        <record model="ir.ui.view" id="supplier_discount2_wizard_tree_id2">-->
-<!--            <field name="name">set.discount</field>-->
-<!--            <field name="model">group.discount</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <tree string="Set Discounts" editable="bottom">-->
-<!--        &lt;!&ndash;                <field name="inv_id"/>&ndash;&gt;-->
-<!--                        <field name="medicine_grp"/>-->
-<!--                        <field name="medicine_name_subcat"/>-->
-<!--                        <field name="medicine_name_packing"/>-->
-<!--                        <field name="discount"/>-->
-<!--                        <field name="expiry_months"/>-->
+        <record model="ir.ui.view" id="supplier_discount2_wizard_tree_id2">
+            <field name="name">set.discount</field>
+            <field name="model">group.discount</field>
+            <field name="arch" type="xml">
+                <tree string="Set Discounts" editable="bottom">
+        <!--                <field name="inv_id"/>-->
+                        <field name="medicine_grp"/>
+                        <field name="medicine_name_subcat"/>
+                        <field name="medicine_name_packing"/>
+                        <field name="discount"/>
+                        <field name="expiry_months"/>
 
-<!--                </tree>-->
-<!--            </field>-->
-<!--        </record>-->
-<!--        <record model="ir.ui.view" id="supplier_discount2_wizard_tree_id_copy">-->
-<!--            <field name="name">set.discountcopy</field>-->
-<!--            <field name="model">group.discount.copy</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <tree string="Set Discounts" editable="bottom">-->
-<!--                        <field name="inv_id"/>-->
-<!--                        <field name="medicine_grp"/>-->
-<!--        &lt;!&ndash;                <field name="medicine_name_subcat"/>&ndash;&gt;-->
-<!--        &lt;!&ndash;                <field name="medicine_name_packing"/>&ndash;&gt;-->
-<!--                        <field name="discount"/>-->
-<!--                        <field name="expiry_months"/>-->
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="supplier_discount2_wizard_tree_id_copy">
+            <field name="name">set.discountcopy</field>
+            <field name="model">group.discount.copy</field>
+            <field name="arch" type="xml">
+                <tree string="Set Discounts" editable="bottom">
+                        <field name="inv_id"/>
+                        <field name="medicine_grp"/>
+        <!--                <field name="medicine_name_subcat"/>-->
+        <!--                <field name="medicine_name_packing"/>-->
+                        <field name="discount"/>
+                        <field name="expiry_months"/>
 
-<!--                </tree>-->
-<!--            </field>-->
-<!--        </record>-->
+                </tree>
+            </field>
+        </record>
 
     </data>
 </openerp>
