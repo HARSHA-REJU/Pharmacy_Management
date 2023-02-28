@@ -27,6 +27,7 @@ class AccountInvoiceLine(models.Model):
     discount = fields.Float(string='Discount', default=0.0,)
     discount2 = fields.Float("DISCOUNT2")
     discount3 = fields.Float("Dis2(%)", )
+    discount4 = fields.Float()
 
     @api.model
     def create(self, vals):
@@ -669,6 +670,9 @@ class AccountInvoiceLine(models.Model):
         for rec in self:
             if rec.product_id:
                 rec.name = rec.product_id.name
+            if rec.invoice_id:
+                if rec.invoice_id.partner_id.supplier:
+                    self.search([('invoice_id', '=' , )])
 
     @api.onchange('medicine_grp')
     def medicine_grp_change_new(self):
@@ -968,7 +972,8 @@ class AccountInvoice(models.Model):
     @api.multi
     def move_to_picking_slip(self):
         for record in self:
-            record.action_stock_transfer()
+            if record.invoice_line:
+                record.action_stock_transfer()
             record.packing_slip = True
             record.packing_slip_new = True
 
@@ -1035,18 +1040,6 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create(self, vals):
-        # if vals.get('partner_id'):
-        #     partner_id = self.env['res.partner'].browse(vals.get('partner_id'))
-        #     if partner_id.customer == True:
-        #         if vals.get('pay_mode') == 'credit':
-        #             credit_amount = partner_id.limit_amt
-        #             used = partner_id.used_credit_amt
-        #             bal = credit_amount - used
-        #             # amount_total = sum(filter(lambda x: x['account'] == order.product_id.categ_id.name, list[a]['account_list']))
-        #
-        #             if bal < vals.get('amount_total'):
-        #                 print("Credit Amount is over")
-        #                 raise Warning(_('This Customers Credit Limit Amount Rs. '+str(credit_amount)+'  has been Crossed.'+"\n" 'Check  '+result.partner_id.name+'s'+ ' Credit Limits'))
 
         if 'duplicate' in self._context:
             if self._context['duplicate']:
@@ -1242,7 +1235,9 @@ class AccountInvoice(models.Model):
     amount_total = fields.Float(string='Total', digits=dp.get_precision('Account'),
                                 readonly=True, compute='_compute_amount')
     amount_tax_custom = fields.Float(string='Tax', digits=dp.get_precision('Account'),
-        store=True, readonly=True, compute='_compute_amount_tax')
+        store=True, readonly=True, compute='_compute_amount')
+    # amount_tax_custom = fields.Float(string='Tax', digits=dp.get_precision('Account'),
+    #     store=True, readonly=True, compute='_compute_amount_tax')
 
     cus_title_1 = fields.Many2one('customer.title', "Customer Type", related="partner_id.cus_title")
     cust_area = fields.Many2one('customer.area', "Customer Area", related="partner_id.cust_area")
@@ -1259,51 +1254,89 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount')
     def _compute_amount(self):
-        if self.partner_id.supplier == True:
-            disc = 0.0
-            total_dis = 0
-            tax_total = 0
-            test = 0
-            test2 =0
-            test3 =0
-            for inv in self:
-                for line in inv.invoice_line:
-                    print (line.discount)
-                    disc += (line.quantity * line.price_unit) * line.discount / 100
-                    test += line.grand_total
-                    test3 = test3+line.rate_amt
-                    test2 = test2+(line.quantity * line.price_unit)
-                    total_dis = total_dis +(line.dis1 + line.dis2)
-                    tax_total = tax_total+line.amount_amount1
-            self.amount_untaxed = test2
-            self.amount_tax = tax_total
-            self.amount_tax_custom = tax_total
-            total_d = test2 - test3
-            self.amount_discount = total_d
-            # self.amount_total = ((test2 -total_d) + tax_total)
-            self.amount_total = round(test)
-        if self.partner_id.customer == True:
-            disc = 0.0
-            total_dis = 0
-            tax_total = 0
-            test = 0
-            test2 = 0
-            test3 = 0
-            for inv in self:
-                for line in inv.invoice_line:
-                    print (line.discount)
-                    disc += (line.quantity * line.price_unit) * line.discount / 100
-                    test += line.amt_w_tax
-                    test3 = test3 + line.amt_w_tax
-                    test2 = test2 + (line.quantity * line.price_unit)
-                    total_dis = total_dis + (line.dis1 + line.dis2)
-                    tax_total = tax_total + line.amt_tax
-            self.amount_untaxed = test2
-            self.amount_tax = tax_total
-            total_d = test2 - (test3-tax_total)
-            self.amount_discount = total_d
-            # self.amount_total = ((test2 -total_d) + tax_total)
-            self.amount_total = round(test)
+        if self.partner_id.supplier:
+            amount_untaxed = sum(self.invoice_line.mapped('rate_amt'))
+            amount_total_w_tax = sum(self.invoice_line.mapped('amount_w_tax'))
+            if amount_total_w_tax <= 0:
+                amount_total_w_tax = sum(self.invoice_line.mapped('grand_total'))
+            total_price_amount = sum(self.invoice_line.mapped(lambda l: l.quantity * l.price_unit))
+            # total_tax_amount = sum(self.invoice_line.mapped('amount_amount1'))
+            # total_discount = sum(self.invoice_line.mapped(lambda l: l.dis1 + l.dis2))
+            total_tax_amount = amount_total_w_tax - amount_untaxed
+            total_discount = total_price_amount - amount_untaxed
+
+            self.amount_untaxed = total_price_amount
+            self.amount_tax = total_tax_amount
+            self.amount_tax_custom = total_tax_amount
+            self.amount_discount = total_discount
+            self.amount_total = round(amount_total_w_tax)
+
+        if self.partner_id.customer:
+            amount_untaxed = sum(self.invoice_line.mapped('price_subtotal'))
+            amount_total_w_tax = sum(self.invoice_line.mapped('amt_w_tax'))
+            if amount_total_w_tax <= 0:
+                amount_total_w_tax = sum(self.invoice_line.mapped('grand_total'))
+            total_price_amount = sum(self.invoice_line.mapped(lambda l: l.quantity * l.price_unit))
+            # total_tax_amount = sum(self.invoice_line.mapped('amt_tax'))
+            # total_discount = sum(self.invoice_line.mapped(lambda l: l.dis1 + l.dis2))
+            total_tax_amount = amount_total_w_tax - amount_untaxed
+            total_discount = total_price_amount - amount_untaxed
+            self.amount_untaxed = total_price_amount
+            self.amount_tax = total_tax_amount
+            self.amount_tax_custom = total_tax_amount
+            self.amount_discount = total_discount
+            self.amount_total = round(amount_total_w_tax)
+
+
+    # @api.one
+    # @api.depends('invoice_line.price_subtotal', 'tax_line.amount')
+    # def _compute_amount(self):
+    #     if self.partner_id.supplier == True:
+    #         disc = 0.0
+    #         total_dis = 0
+    #         tax_total = 0
+    #         test = 0
+    #         test2 =0
+    #         test3 =0
+    #         for inv in self:
+    #             for line in inv.invoice_line:
+    #                 print (line.discount)
+    #                 disc += (line.quantity * line.price_unit) * line.discount / 100
+    #                 test += line.grand_total
+    #                 test3 = test3+line.rate_amt
+    #                 test2 = test2+(line.quantity * line.price_unit)
+    #                 # test2 = test2+line.rate_amt
+    #                 total_dis = total_dis +(line.dis1 + line.dis2)
+    #                 tax_total = tax_total+line.amount_amount1
+    #         self.amount_untaxed = test2
+    #         self.amount_tax = tax_total
+    #         self.amount_tax_custom = tax_total
+    #         total_d = test2 - test3
+    #         self.amount_discount = total_d
+    #         # self.amount_total = ((test2 -total_d) + tax_total)
+    #         self.amount_total = round(test)
+    #     if self.partner_id.customer == True:
+    #         disc = 0.0
+    #         total_dis = 0
+    #         tax_total = 0
+    #         test = 0
+    #         test2 = 0
+    #         test3 = 0
+    #         for inv in self:
+    #             for line in inv.invoice_line:
+    #                 print (line.discount)
+    #                 disc += (line.quantity * line.price_unit) * line.discount / 100
+    #                 test += line.amt_w_tax
+    #                 test3 = test3 + line.amt_w_tax
+    #                 test2 = test2 + (line.quantity * line.price_unit)
+    #                 total_dis = total_dis + (line.dis1 + line.dis2)
+    #                 tax_total = tax_total + line.amt_tax
+    #         self.amount_untaxed = test2
+    #         self.amount_tax = tax_total
+    #         total_d = test2 - (test3-tax_total)
+    #         self.amount_discount = total_d
+    #         # self.amount_total = ((test2 -total_d) + tax_total)
+    #         self.amount_total = round(test)
 
     @api.onchange('discount_category')
     def onchange_category_id(self):

@@ -157,6 +157,7 @@ class PartnerPayment(models.Model):
                     self.voucher_relation_id.amount = self.payment_amount
                     if amount == invoice.residual:
                         invoice.state = 'paid'
+                        invoice.paid_bool = True
                     else:
 
                         move = self.env['account.move']
