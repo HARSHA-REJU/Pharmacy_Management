@@ -89,8 +89,9 @@ class SupplierDiscounts1(models.Model):
         for rec in self:
             if rec.supplier:
                 discounts = self.env['supplier.discounts'].search([('supplier','=',rec.supplier.id)])
-                return {'warning': {'title': _('Warning'), 'message': _(
-                    'Already created group wise discount for the supplier '  + rec.supplier.name + "/n If you want make any changes please edit it")}}
+                if discounts:
+                    return {'warning': {'title': _('Warning'), 'message': _(
+                        'Already created group wise discount for the supplier '  + rec.supplier.name + "/n If you want make any changes please edit it")}}
 
 
 class SupplierDiscounts2(models.Model):
@@ -110,8 +111,9 @@ class SupplierDiscounts2(models.Model):
         for rec in self:
             if rec.supplier:
                 discounts = self.env['supplier.discounts'].search([('supplier','=',rec.supplier.id)])
-                return {'warning': {'title': _('Warning'), 'message': _(
-                    'Already created product wise discount for the supplier '  + rec.supplier.name + ". If you want to make any changes please edit it")}}
+                if discounts:
+                    return {'warning': {'title': _('Warning'), 'message': _(
+                        'Already created product wise discount for the supplier '  + rec.supplier.name + ". If you want to make any changes please edit it")}}
 
 
 # class SetDiscount2(models.Model):

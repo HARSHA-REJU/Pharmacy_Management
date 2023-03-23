@@ -952,13 +952,14 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def invoice_print(self):
-        if self.state == 'open':
-            self.state = 'paid'
-        if self.state == 'draft':
-            self.action_date_assign()
-            self.action_move_create()
-            self.action_number()
-            self.invoice_validate()
+        if self.type == 'out_invoice':
+            if self.state == 'open':
+                self.state = 'paid'
+            if self.state == 'draft':
+                self.action_date_assign()
+                self.action_move_create()
+                self.action_number()
+                self.invoice_validate()
         return super(AccountInvoice, self).invoice_print()
 
     @api.multi
