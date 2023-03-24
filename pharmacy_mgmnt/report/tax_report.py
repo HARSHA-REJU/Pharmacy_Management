@@ -88,12 +88,26 @@ class TaxReportWizard(models.TransientModel):
             if self.b2c:
                 raise Warning(_('Please select any one (by HSN or b2c)'))
             else:
-                data = {}
-                data['form'] = self.read(['from_date', 'to_date'])
-                return {'type': 'ir.actions.report.xml',
-                        'report_name': 'pharmacy_mgmnt.report_tax_excel.xlsx',
-                        'datas': data
-                        }
+                datas = {
+                    'ids': self._ids,
+                    'model': self._name,
+                    'form': self.read(),
+                    'context': self._context,
+                }
+                return {
+                    'type': 'ir.actions.report.xml',
+                    'report_name': 'pharmacy_mgmnt.b2b_hsn_tax_report_template',
+                    'datas': datas,
+                    'report_type': 'qweb-pdf',
+                }
+
+        # excel not working in offline so created PDF for Offline
+        # data = {}
+                # data['form'] = self.read(['from_date', 'to_date'])
+                # return {'type': 'ir.actions.report.xml',
+                #         'report_name': 'pharmacy_mgmnt.report_tax_excel.xlsx',
+                #         'datas': data
+                #         }
         else:
             datas = {
                 'ids': self._ids,
@@ -109,15 +123,25 @@ class TaxReportWizard(models.TransientModel):
             }
 
     @api.multi
+    def get_b2b_hsn_tax_invoices(self):
+        invoice_ids = self.env['account.invoice'].search([
+            ('date_invoice', '>=', self.from_date),
+            ('date_invoice', '<=', self.to_date),
+            ('partner_id.b2b', '=', True),
+            ('packing_slip','=',False),
+            ('holding_invoice','=',False)])
+        return invoice_ids
+
+    @api.multi
     def get_b2b_tax_invoices(self):
         if self.b2c:
             invoices = self.env['account.invoice'].search(
                 [("date_invoice", ">=", self.from_date), ("date_invoice", "<=", self.to_date),
-                 ('partner_id.customer', '=', True), ('b2c', '=', True)])
+                 ('partner_id.customer', '=', True), ('partner_id.b2c', '=', True),('packing_slip','=',False),('holding_invoice','=',False)])
         else:
             invoices = self.env['account.invoice'].search(
                 [("date_invoice", ">=", self.from_date), ("date_invoice", "<=", self.to_date),
-                 ('partner_id.customer', '=', True), ('b2c', '=', False)])
+                 ('partner_id.customer', '=', True), ('partner_id.b2b', '=', True),('packing_slip','=',False),('holding_invoice','=',False)])
 
         data_list = []
         for invoice in invoices:
@@ -129,13 +153,13 @@ class TaxReportWizard(models.TransientModel):
             tax_12_sum = sum(tax_12.mapped('amt_tax'))
             tax_18_sum = sum(tax_18.mapped('amt_tax'))
 
-            total_amount_sgst_5 = 0
-            total_amount_sgst_12 = 0
-            total_amount_sgst_18 = 0
+            total_amount_sgst_5 = tax_5_sum/2
+            total_amount_sgst_12 = tax_12_sum/2
+            total_amount_sgst_18 = tax_18_sum/2
 
-            total_amount_cgst_5 = 0
-            total_amount_cgst_12 = 0
-            total_amount_cgst_18 = 0
+            total_amount_cgst_5 = tax_5_sum/2
+            total_amount_cgst_12 = tax_12_sum/2
+            total_amount_cgst_18 = tax_18_sum/2
 
             vals = {'invoice': invoice,
 

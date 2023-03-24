@@ -72,8 +72,8 @@ th, td {
 										</thead>
 										<tbody>
 											<t t-foreach="docs.get_details()" t-as="line">
-												<tr>
-													<td>
+												<tr >
+													<td >
 														<center><span t-esc="sl_no" />
 															<t t-set="sl_no" t-value="sl_no+1" /></center>
 													</td>

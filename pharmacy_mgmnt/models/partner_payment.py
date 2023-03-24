@@ -26,7 +26,7 @@ class PartnerPayment(models.Model):
 
     voucher_relation_id = fields.Many2one('account.voucher', required=True)
     res_person_id = fields.Many2one('res.partner', domain=[('res_person_id', '=', True)])
-    partner_id = fields.Many2one('res.partner')
+    partner_id = fields.Many2one('res.partner', domain=[('customer', '=', True)])
     reference_number = fields.Char()
     date = fields.Date()
     payment_method = fields.Selection([('cheque', 'Cheque'), ('cash', 'Cash')], string="Mode of Payment")
@@ -52,7 +52,7 @@ class PartnerPayment(models.Model):
                 print('I am herte333')
                 list = []
                 invoices = self.env['account.invoice'].search(
-                    [('partner_id', '=', rec.partner_id.id), ('res_person', '=', rec.res_person_id.id)])
+                    [('partner_id', '=', rec.partner_id.id), ('res_person', '=', rec.res_person_id.id),('packing_slip','=',False),('holding_invoice','=',False)])
                 if invoices:
                     for line in invoices:
                         if line.state == 'open':
@@ -91,7 +91,7 @@ class PartnerPayment(models.Model):
             if rec.res_person_id and rec.partner_id:
                 list = []
                 invoices = self.env['account.invoice'].search(
-                    [('partner_id', '=', rec.partner_id.id), ('res_person', '=', rec.res_person_id.id)])
+                    [('partner_id', '=', rec.partner_id.id), ('res_person', '=', rec.res_person_id.id),('packing_slip','=',False),('holding_invoice','=',False)])
                 if invoices:
                     for line in invoices:
                         if line.state == 'open':
@@ -211,7 +211,7 @@ class PartnerPayment(models.Model):
     @api.multi
     def open_tree_view_history(self, context=None):
         if self.res_person_id:
-            field_ids = self.env['account.invoice'].search([('res_person', '=', self.res_person_id.id)]).ids
+            field_ids = self.env['account.invoice'].search([('res_person', '=', self.res_person_id.id),('packing_slip','=',False),('holding_invoice','=',False)]).ids
             domain = [('id', 'in', field_ids)]
             view_id_tree = self.env['ir.ui.view'].search([('name', '=', "model.tree")])
             return {

@@ -17,7 +17,7 @@ class CustomerInvoiceHistoryTree(models.TransientModel):
     def action_customer_invoice_his_open_window(self):
         domain = []
         if self.invoices_id:
-            domain += [('number', '=', self.invoices_id.id)]
+            domain += [('id', '=', self.invoices_id.id)]
             res = self.env['account.invoice'].search(domain)
         else:
             if self.partner_id:

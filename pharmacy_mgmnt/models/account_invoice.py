@@ -356,32 +356,32 @@ class AccountInvoiceLine(models.Model):
     @api.model
     @api.depends('amt_w_tax', 'invoice_line_tax_id4', 'price_subtotal', 'amount_amount1', 'price_unit', 'rate_amtc')
     def _compute_customer_tax(self):
-        if self.partner_id.customer == True:
+        for record in self:
+            if record.partner_id.customer:
+                for rec in record:
+                    if rec.rate_amtc == 0:
+                        if rec.rate_amtc < rec.price_subtotal:
+                            if rec.rate_amtc == 0:
+                                # print("NORMAL TAX")
+                                rate_amount = rec.price_subtotal
+                                perce = rec.invoice_line_tax_id4
+                                tax = rate_amount * (perce / 100)
+                                rec.amt_tax = tax
+                                total = rate_amount + tax
+                                rec.amt_w_tax = total
 
-            for rec in self:
-                if rec.rate_amtc == 0:
-                    if rec.rate_amtc < rec.price_subtotal:
-                        if rec.rate_amtc == 0:
-                            # print("NORMAL TAX")
-                            rate_amount = rec.price_subtotal
-                            perce = rec.invoice_line_tax_id4
-                            tax = rate_amount * (perce / 100)
-                            rec.amt_tax = tax
-                            total = rate_amount + tax
-                            rec.amt_w_tax = total
+                    else:
 
-                else:
-
-                    print("DIFFERENT TAX")
-                    perce = rec.invoice_line_tax_id4
-                    new_rate = rec.rate_amtc
-                    print("rate_amt...", new_rate)
-                    tax = new_rate * (perce / 100)
-                    print("tax.....", tax)
-                    rec.amt_tax = tax
-                    total = new_rate + tax
-                    print("this total", total)
-                    rec.amt_w_tax = total
+                        print("DIFFERENT TAX")
+                        perce = rec.invoice_line_tax_id4
+                        new_rate = rec.rate_amtc
+                        print("rate_amt...", new_rate)
+                        tax = new_rate * (perce / 100)
+                        print("tax.....", tax)
+                        rec.amt_tax = tax
+                        total = new_rate + tax
+                        print("this total", total)
+                        rec.amt_w_tax = total
 
     @api.one
     @api.depends('product_id', 'medicine_name_subcat', 'medicine_grp', 'medicine_name_subcat', 'discount2',
@@ -593,15 +593,16 @@ class AccountInvoiceLine(models.Model):
                  'price_unit',
                  'quantity', 'amt_w_tax')
     def _compute_cus_ex_discount(self):
+        for record in self:
 
-        percentage = 0
-        if self.partner_id.customer == True:
-            if self.rate_amtc:
-                for rec in self:
-                    # print("got")
-                    new_rate = rec.rate_amtc
-                    percentage = (new_rate / rec.price_subtotal) * 100
-                    rec.new_disc = 100 - percentage
+            percentage = 0
+            if record.partner_id.customer == True:
+                if record.rate_amtc:
+                    for rec in self:
+                        # print("got")
+                        new_rate = rec.rate_amtc
+                        percentage = (new_rate / rec.price_subtotal) * 100
+                        rec.new_disc = 100 - percentage
 
     medicine_rack = fields.Many2one('product.medicine.types', 'Rack')
     product_of = fields.Many2one('product.medicine.responsible', 'Company')
@@ -636,7 +637,7 @@ class AccountInvoiceLine(models.Model):
     calc2 = fields.Float('Cal2', )
     calc3 = fields.Float('Cal3', )
     new_disc = fields.Float('Dis2(%)', compute="_compute_cus_ex_discount", )
-    amt_tax = fields.Float('Tax_amt')
+    amt_tax = fields.Float('Tax_amt', compute="_compute_customer_tax")
     amt_w_tax = fields.Float('Total', compute="_compute_customer_tax")
     doctor_name = fields.Many2one('res.partner', 'Doctor Name')
     doctor_name_1 = fields.Char('Doctor Name')

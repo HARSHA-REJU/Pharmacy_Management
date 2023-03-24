@@ -39,19 +39,20 @@ class PendingInvoiceReport(models.TransientModel):
             if self.resp_partner_id:
                 cust_invs = self.env['account.invoice'].search(
                     [('date_invoice', '>=', self.date_from), ('date_invoice', '<=', self.date_to),
-                     ('partner_id', '=', self.partner_id.id), ('res_person', '=', self.resp_partner_id.id)])
+                     ('partner_id', '=', self.partner_id.id), ('res_person', '=', self.resp_partner_id.id),
+                     ('packing_slip','=',False),('holding_invoice','=',False)])
             else:
                 cust_invs = self.env['account.invoice'].search(
                     [('date_invoice', '>=', self.date_from), ('date_invoice', '<=', self.date_to),
-                     ('partner_id', '=', self.partner_id.id)])
+                     ('partner_id', '=', self.partner_id.id), ('packing_slip','=',False),('holding_invoice','=',False)])
         else:
             if self.resp_partner_id:
                 cust_invs = self.env['account.invoice'].search(
                     [('date_invoice', '>=', self.date_from), ('date_invoice', '<=', self.date_to),
-                     ('res_person', '=', self.resp_partner_id.id)])
+                     ('res_person', '=', self.resp_partner_id.id), ('packing_slip','=',False),('holding_invoice','=',False)])
             else:
                 cust_invs = self.env['account.invoice'].search(
-                    [('date_invoice', '>=', self.date_from), ('date_invoice', '<=', self.date_to)])
+                    [('date_invoice', '>=', self.date_from), ('date_invoice', '<=', self.date_to), ('packing_slip','=',False),('holding_invoice','=',False)])
 
         for rec in cust_invs:
             if rec.state == 'draft':

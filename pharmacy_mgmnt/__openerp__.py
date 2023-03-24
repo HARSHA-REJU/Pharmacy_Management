@@ -33,6 +33,7 @@
              'report/customer_inv_history.xml',
              'report/supplier_inv_history.xml',
              'report/purchase_report.xml',
+             'report/tax_report_excel_to_pdf.xml',
 
              'report/inherit_supplier_invoice_report.xml',
 

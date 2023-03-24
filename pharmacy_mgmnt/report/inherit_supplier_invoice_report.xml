@@ -68,7 +68,13 @@
                         <td><span t-field="l.invoice_line_tax_id4"/></td>
 <!--                        <td><span t-field="l.amt_tax"/></td>-->
 <!--                        <td><span t-field="l.amt_w_tax"/></td>-->
-                        <td><span t-field="l.price_subtotal + (l.price_subtotal * (l.invoice_line_tax_id4/100))"/></td>
+                        <t t-if="o.type == 'out_invoice'">
+<!--                            <td><span t-esc="l.price_subtotal + (l.price_subtotal * (l.invoice_line_tax_id4/100))"/></td>-->
+                            <td><span t-esc="l.amt_w_tax"/></td>
+                        </t>
+                        <t t-if="o.type != 'out_invoice'">
+                            <td><span t-esc="l.amount_w_tax"/></td>
+                        </t>
 
                     </tr>
                     <t t-set="qty_total" t-value="0"/>

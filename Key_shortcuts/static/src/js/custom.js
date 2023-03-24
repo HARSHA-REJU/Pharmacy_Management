@@ -21,7 +21,7 @@ $.shortcut = function(key, callback, args) {
 };
 
 $.shortcut('113', function() {
-    window.location.assign("/web#view_type=list&model=account.invoice&action=399");
+    window.location.assign("/web#view_type=form&model=account.invoice&action=399");
         $('.oe_list_add').trigger('click');
         $('.oe_form_button_create').trigger('click');
 

@@ -110,7 +110,7 @@ class SupplierDiscounts2(models.Model):
     def supplier_onchange(self):
         for rec in self:
             if rec.supplier:
-                discounts = self.env['supplier.discounts'].search([('supplier','=',rec.supplier.id)])
+                discounts = self.env['supplier.discounts2'].search([('supplier','=',rec.supplier.id)])
                 if discounts:
                     return {'warning': {'title': _('Warning'), 'message': _(
                         'Already created product wise discount for the supplier '  + rec.supplier.name + ". If you want to make any changes please edit it")}}

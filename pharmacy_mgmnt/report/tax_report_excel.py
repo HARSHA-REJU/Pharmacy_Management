@@ -1,3 +1,6 @@
+
+# excel not working in offline so created PDF for Offline
+
 from openerp.addons.report_xlsx.report.report_xlsx import ReportXlsx
 from datetime import datetime, timedelta
 import logging
@@ -56,8 +59,8 @@ class TaxReport(ReportXlsx):
 
 
         inv = lines
-        worksheet.merge_range('A1:E1', "TRAVANCORE HOMEO_1 MEDICALS, GSTIN :32AYAPS1856Q1ZY", heading_format)
-        worksheet.merge_range('A2:B2', "GST BTOB HSN Report by BIll " + datetime.strftime(datetime.strptime(inv[0].from_date, "%Y-%m-%d"), "%d-%m-%Y") + " to " + datetime.strftime(datetime.strptime(inv[0].to_date, "%Y-%m-%d"), "%d-%m-%Y"),boldc)
+        worksheet.merge_range('A1:E1', "TRAVANCORE HOMEO MEDICALS, GSTIN :32AYAPS1856Q1ZY", heading_format)
+        worksheet.merge_range('A2:B2', "GST BtoB HSN Report by BIll" + datetime.strftime(datetime.strptime(inv[0].from_date, "%Y-%m-%d"), "%d-%m-%Y") + " to " + datetime.strftime(datetime.strptime(inv[0].to_date, "%Y-%m-%d"), "%d-%m-%Y"),boldc)
 
         # worksheet.merge_range('A2:Q2', month, boldc)
         worksheet.write('A4', 'Customer Name', boldcl)
@@ -66,7 +69,7 @@ class TaxReport(ReportXlsx):
         worksheet.write('D4', 'Bill Date', boldcc)
         worksheet.write('E4', 'Tax Total', rightbr)
         row = 5
-        invoice_ids = self.env['account.invoice'].search([('date_invoice', '>=', inv[0].from_date), ('date_invoice', '<=', inv[0].to_date), ('b2b', '=', True)])
+        invoice_ids = self.env['account.invoice'].search([('date_invoice', '>=', inv[0].from_date), ('date_invoice', '<=', inv[0].to_date), ('b2b', '=', True), ('packing_slip','=',False),('holding_invoice','=',False)])
         tax_amount_total = 0
         amount_total = 0
         tax_total = 0

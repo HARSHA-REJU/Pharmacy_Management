@@ -68,7 +68,7 @@ class ResPartner(models.Model):
 
     @api.multi
     def open_tree_view(self, context=None):
-        field_ids = self.env['account.invoice'].search([('res_person', '=', self.id)]).ids
+        field_ids = self.env['account.invoice'].search([('res_person', '=', self.id),('packing_slip','=',False),('holding_invoice','=',False)]).ids
 
         domain = [('id', 'in', field_ids)]
 
