@@ -23,6 +23,17 @@ class ResPartner(models.Model):
     cus_title = fields.Many2one('customer.title', "Customer Type")
     cust_area = fields.Many2one('customer.area', "Customer Area")
 
+    @api.onchange('b2b','b2c')
+    def _change_boolean(self):
+        for rec in self:
+            if rec.b2b:
+                rec.b2c = False
+    @api.onchange('local_customer','interstate_customer')
+    def _change_boolean_local_customer(self):
+        for rec in self:
+            if rec.interstate_customer:
+                rec.local_customer = False
+
 
     # @api.multi
     @api.depends('gst_no')

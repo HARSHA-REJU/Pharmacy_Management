@@ -46,7 +46,7 @@ class CustomerInvoiceHistoryTree(models.TransientModel):
     def action_packing_slip_window(self):
         domain = [('packing_slip','=',True)]
         if self.invoices_id:
-            domain += [('number2', '=', self.invoices_id.id)]
+            domain += [('id', '=', self.invoices_id.id)]
             res = self.env['account.invoice'].search(domain)
         else:
             if self.partner_id:
@@ -75,7 +75,7 @@ class CustomerInvoiceHistoryTree(models.TransientModel):
     def action_holding_invoice_window(self):
         domain = [('holding_invoice','=',True)]
         if self.invoices_id:
-            domain += [('number2', '=', self.invoices_id.id)]
+            domain += [('id', '=', self.invoices_id.id)]
             res = self.env['account.invoice'].search(domain)
         else:
             if self.partner_id:

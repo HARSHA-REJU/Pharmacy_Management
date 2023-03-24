@@ -129,6 +129,8 @@
             <field name="res_model">res.partner</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="domain">[('res_person_id','=',True)]</field>
+            <field name="context">{'default_res_person_id': 1,}</field>
+
         </record>
 
         <record id="action_partner_supplier_form" model="ir.actions.act_window">
