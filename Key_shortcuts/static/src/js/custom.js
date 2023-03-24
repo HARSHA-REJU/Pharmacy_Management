@@ -21,21 +21,21 @@ $.shortcut = function(key, callback, args) {
 };
 
 $.shortcut('113', function() {
-//var current_url = window.location.href
-//var new_url = window.location.protocol + '//' + window.location.host + '/' + 'web?debug=1#view_type=form&model=account.invoice&menu_id=441&action=395'
-//     window.location.assign(window.location.protocol + '//' + window.location.host + '/' + 'web?debug=1#view_type=form&model=account.invoice&menu_id=441&action=395')
+    window.location.assign("/web#view_type=list&model=account.invoice&action=399");
+        $('.oe_list_add').trigger('click');
+        $('.oe_form_button_create').trigger('click');
 
- window.location.assign(window.location.protocol + '//' + window.location.host + '/' + 'web#view_type=form&model=account.invoice&action=395')
-$('.oe_form_button_create').each(function() {
-    if($(this).parents('div:hidden').length == 0){
-        $(this).trigger('click');
-    }
-});
-	$('.oe_list_add').each(function() {
-            if($(this).parents('div:hidden').length == 0){
-                $(this).trigger('click');
-            }
-        });
+//    $('.oe_form_button_create').each(function() {
+//        if($(this).parents('div:hidden').length == 0){
+//            $(this).trigger('click');
+//        }
+//    });
+//
+//	$('.oe_list_add').each(function() {
+//            if($(this).parents('div:hidden').length == 0){
+//                $(this).trigger('click');
+//            }
+//        });
 });
 
 $.shortcut('114', function() {
