@@ -6,24 +6,23 @@
 			<field name="arch" type="xml">
 				<form string="Supplier Invoice History">
 
-					<group col="3">
+					<group>
 
 						<group>
-<field name="partner_id" domain="[('supplier','=',True)]" />
+							<field name="partner_id" domain="[('supplier','=',True)]" />
 							<field name="financial_year"/>
-
 						</group>
-                        <group>
-                            <field name="invoices_id"/>
-                            <field name="bill_no"/>
-                        </group>
 						<group>
 							<field name="date_from"/>
 							<field name="date_to"/>
-
 						</group>
 						<group>
-
+							<separator string="OR"/>
+							<field name="bill_no"/>
+						</group>
+						<group>
+							<separator string="OR"/>
+							<field name="invoices_id"/>
 						</group>
                     </group>
 

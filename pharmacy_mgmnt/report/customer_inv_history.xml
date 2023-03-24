@@ -5,22 +5,20 @@
 			<field name="model">customer.invoice.historytree</field>
 			<field name="arch" type="xml">
 				<form string="Customer Invoice History">
-					<group col="2">
+					<group>
 						<group>
 							<field name="partner_id" domain="[('customer','=',True)]" />
 							<field name="financial_year"/>
-							<field name="invoices_id"/>
 						</group>
 						<group>
 							<field name="date_from"/>
 							<field name="date_to"/>
-
 						</group>
 						<group>
-
+							<separator string="OR"/>
+							<field name="invoices_id"/>
 						</group>
-                    </group>
-
+					</group>
 					<footer>
 						<button name="action_customer_invoice_his_open_window" type="object" string="Open" class="oe_highlight" />
 						<button string="Cancel" class="oe_link" special="cancel" />

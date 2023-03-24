@@ -15,7 +15,7 @@ class CustomerInvoiceHistoryTree(models.TransientModel):
 
     @api.multi
     def action_customer_invoice_his_open_window(self):
-        domain = []
+        domain = [('packing_slip','=',False),('holding_invoice','=',False),('type','=','out_invoice')]
         if self.invoices_id:
             domain += [('id', '=', self.invoices_id.id)]
             res = self.env['account.invoice'].search(domain)

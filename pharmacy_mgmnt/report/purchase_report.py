@@ -48,142 +48,22 @@ class CustomerInvoiceReport(models.TransientModel):
 
     @api.multi
     def get_details(self):
-        lst=[]
+        invoice_lines = False
         if self.date_from:
-            cust_invs = self.env['account.invoice'].search(
-                [('date_invoice', '>=', self.date_from), ('date_invoice', '<=', self.date_to),
-                 ])
-            for rec in cust_invs:
-                if rec.state == 'draft':
-                    pass
-                else:
-                    for lines in rec.invoice_line:
-                        if self.product.id and self.company.id and self.group.id and self.packing.id and self.potency.id:
-                            if ((lines.product_id.id == self.product.id) and (
-                                            lines.product_of.id == self.company.id)
-                                    and (lines.medicine_grp.id == self.group.id) and (
-                                            lines.medicine_name_packing.id == self.packing.id) and (lines.medicine_name_subcat.id == self.potency.id)):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.product.id and self.company.id and self.group.id and self.packing.id:
-                        if ((lines.product_id.id == self.product.id) and (
-                                lines.product_of.id == self.company.id)
-                                and (lines.medicine_grp.id == self.group.id) and (
-                                        lines.medicine_name_packing.id == self.packing.id)):
-                            if (self.potency.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.product.id and self.company.id and self.group.id and self.potency.id:
-                        if ((lines.product_id.id == self.product.id) and (
-                                lines.product_of.id == self.company.id)
-                                and (lines.medicine_grp.id == self.group.id)and (
-                                        lines.medicine_name_subcat.id == self.potency.id)):
-                            if (self.packing.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.product.id and self.company.id and self.packing.id and self.potency.id:
-                        if ((lines.product_id.id == self.product.id) and (
-                                lines.product_of.id == self.company.id)
-                                and (lines.medicine_name_packing.id == self.packing.id)and (
-                                        lines.medicine_name_subcat.id == self.potency.id)):
-                            if (self.group.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.company.id and self.group.id and self.potency.id:
-                        if ((lines.product_of.id == self.company.id)
-                                and (lines.medicine_grp.id == self.group.id)and (
-                                        lines.medicine_name_subcat.id == self.potency.id)):
-                            if (self.packing.id == False) and (self.product.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.company.id and self.group.id and self.product.id:
-                        if ((lines.product_id.id == self.product.id)
-                                and (lines.medicine_grp.id == self.group.id)and (
-                                        lines.product_of == self.company.id)):
-                            if (self.packing.id == False) and (self.potency.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.company.id and self.group.id and self.product.id and self.potency.id:
-                        if ((lines.product_id.id == self.product.id)
-                                and (lines.medicine_grp.id == self.group.id)and (
-                                        lines.product_of == self.company.id)):
-                            if (self.packing.id == False) and (self.potency.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.company.id and self.group.id:
-                        if ((lines.medicine_grp.id == self.group.id) and (
-                                        lines.product_of == self.company.id)):
-                            if (self.packing.id == False) and (self.potency.id == False) and (self.product.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
-                    if self.company.id and self.potency.id:
-                        if ((lines.medicine_name_subcat.id == self.potency.id) and (
-                                        lines.product_of == self.company.id)):
-                            if (self.packing.id == False) and (self.group.id == False) and (self.product.id == False):
-                                vals = {
-                                    'inv_no': rec.number,
-                                    'product': lines.product_id.name,
-                                    'batch': lines.batch_2.batch,
-                                    'expiry': lines.expiry_date,
-                                    'rack': lines.medicine_rack.medicine_type,
-                                    'qty': round(lines.quantity, 0),
-                                }
-                                lst.append(vals)
+            domain = [('invoice_id.date_invoice', '>=', self.date_from),
+                 ('invoice_id.date_invoice', '<=', self.date_to),
+                 ('invoice_id.type','!=','out_invoice')]
+            if self.product:
+                domain += [('product_id', '>=', self.product)]
+            if self.company:
+                domain += [('product_of', '>=', self.company)]
+            if self.group:
+                domain += [('medicine_grp', '>=', self.group)]
+            if self.packing:
+                domain += [('medicine_name_packing', '>=', self.packing)]
+            if self.potency:
+                domain += [('medicine_name_subcat', '>=', self.potency)]
 
-        return lst
+            invoice_lines = self.env['account.invoice.line'].search(domain)
+
+        return invoice_lines

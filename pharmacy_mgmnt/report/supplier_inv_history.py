@@ -15,9 +15,12 @@ class SupplierInvoiceHistoryTree(models.TransientModel):
 
     @api.multi
     def action_supplier_invoice_his_open_window(self):
-        domain = []
+        domain = [('type','!=','out_invoice')]
         if self.invoices_id:
             domain += [('id', '=', self.invoices_id.id)]
+            res = self.env['account.invoice'].search(domain)
+        elif self.bill_no:
+            domain +=[('inv_sup_no', '<=', self.bill_no)]
             res = self.env['account.invoice'].search(domain)
         else:
             if self.partner_id:
