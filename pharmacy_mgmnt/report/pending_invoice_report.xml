@@ -20,15 +20,16 @@
 			<field name="model">pending.invoice.report</field>
 			<field name="arch" type="xml">
 				<form string="Pending Invoice Report">
-					<group col="4">
-                        <field name="partner_id" domain="[('customer','=',True)]"/>
-                        <field name="resp_partner_id" domain="[('res_person_id','=',True)]"/>
-                    </group>
-					<group col="4">
-						<field name="date_from" required="1"/>
-						<field name="date_to" required="1"/>
+					<group>
+						<group>
+							<field name="partner_id" domain="[('customer','=',True),('res_person_id','=',False)]"/>
+							<field name="resp_partner_id" domain="[('res_person_id','=',True)]"/>
+						</group>
+						<group>
+							<field name="date_from" required="1"/>
+							<field name="date_to" required="1"/>
+						</group>
 					</group>
-
 					<footer>
 						<button name="action_pending_invoice_open_window" type="object" string="Print" class="oe_highlight" />
 						<button string="Cancel" class="oe_link" special="cancel" />

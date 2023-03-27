@@ -15,6 +15,7 @@ class TaxReportWizard(models.TransientModel):
     company = fields.Many2one('product.medicine.responsible')
     packing = fields.Many2one('product.medicine.packing')
     b2c = fields.Boolean()
+    b2b = fields.Boolean()
     by_hsn = fields.Boolean()
 
     @api.onchange('by_hsn')

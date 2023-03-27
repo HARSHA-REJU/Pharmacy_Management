@@ -5,13 +5,18 @@
 			<field name="model">purchase.invoice.report</field>
 			<field name="arch" type="xml">
 				<form string="Purchase Report">
-					<group col="4">
-
-						<group><field name="date_from" required="1"/><field name="date_to" required="1"/><field name="product"/></group>
-						<group><field name="potency"/><field name="company"/></group>
-						<group><field name="group"/><field name="packing"/></group>
-						<group></group>
-
+					<group>
+						<group>
+							<field name="date_from" required="1"/>
+							<field name="date_to" required="1"/>
+							<field name="product"/>
+							<field name="packing"/>
+						</group>
+						<group>
+							<field name="potency"/>
+							<field name="company"/>
+							<field name="group"/>
+						</group>
 					</group>
 					<footer>
 						<button name="action_purchase_report_open_window" type="object" string="Print" class="oe_highlight" />
