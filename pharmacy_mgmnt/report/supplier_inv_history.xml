@@ -5,9 +5,7 @@
 			<field name="model">supplier.invoice.historytree</field>
 			<field name="arch" type="xml">
 				<form string="Supplier Invoice History">
-
 					<group>
-
 						<group>
 							<field name="partner_id" domain="[('supplier','=',True)]" />
 							<field name="financial_year"/>
@@ -16,15 +14,15 @@
 							<field name="date_from"/>
 							<field name="date_to"/>
 						</group>
-						<group>
-							<separator string="OR"/>
-							<field name="bill_no"/>
-						</group>
-						<group>
-							<separator string="OR"/>
-							<field name="invoices_id"/>
-						</group>
-                    </group>
+					</group>
+					<separator string="OR"/>
+					<group col="4">
+						<field name="bill_no"/>
+					</group>
+					<separator string="OR"/>
+					<group col="4">
+						<field name="invoices_id"/>
+					</group>
 
 					<footer>
 						<button name="action_supplier_invoice_his_open_window" type="object" string="Open" class="oe_highlight" />

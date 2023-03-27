@@ -20,7 +20,7 @@ class SupplierInvoiceHistoryTree(models.TransientModel):
             domain += [('id', '=', self.invoices_id.id)]
             res = self.env['account.invoice'].search(domain)
         elif self.bill_no:
-            domain +=[('inv_sup_no', '<=', self.bill_no)]
+            domain +=[('inv_sup_no', '=', self.bill_no)]
             res = self.env['account.invoice'].search(domain)
         else:
             if self.partner_id:

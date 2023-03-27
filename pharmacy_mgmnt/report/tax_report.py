@@ -21,12 +21,23 @@ class TaxReportWizard(models.TransientModel):
     @api.onchange('by_hsn')
     def onchange_by_hsn(self):
         if self.b2c:
-            raise Warning(_('Please select any one (by HSN or b2c)'))
+            raise Warning(_('Please select any one (by HSN or b2c or b2b)'))
 
     @api.onchange('b2c')
     def onchange_b2c(self):
         if self.b2c:
             self.by_hsn = False
+            self.b2b = False
+    @api.onchange('by_hsn')
+    def onchange_b2c(self):
+        if self.by_hsn:
+            self.b2c = False
+            self.b2b = False
+    @api.onchange('b2b')
+    def onchange_b2c(self):
+        if self.b2b:
+            self.by_hsn = False
+            self.b2c = False
 
     @api.multi
     def view_tax_report(self):
@@ -45,7 +56,7 @@ class TaxReportWizard(models.TransientModel):
 
     @api.model
     def get_tax_invoices(self):
-        domain = [('state', '=', 'paid')]
+        domain = [('state', '=', 'paid'), ('type', '=', 'out_invoice')]
         if self.from_date:
             domain = [('invoice_id.date_invoice', '>=', self.from_date)]
         if self.to_date:

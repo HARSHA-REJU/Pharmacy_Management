@@ -479,11 +479,11 @@
             <field name="name">Cheque Entry Sequence</field>
             <field name="code">cheque.entry.sequence</field>
         </record>
-        <record id="sequence_self_service" model="ir.sequence">
+        <record id="sequence_cheque_self_service" model="ir.sequence">
             <field name="name">Cheque</field>
             <field name="code">cheque.entry.sequence</field>
             <field name="active">TRUE</field>
-            <field name="prefix">SN</field>
+            <field name="prefix">CHQ</field>
             <field name="padding">6</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
@@ -536,11 +536,11 @@
                 <form string="Cheque Transactions Details">
 
                  <header>
-                     <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,post,bounce"/>
                      <button name="post" string="Post"  class="oe_highlight"
-                             type="object" attrs="{'invisible': [('state', '=', 'post')]}"/>
+                             type="object" states="draft"/>
                      <button name="bounce" string="Bounce"  class="oe_highlight"
-                             type="object" attrs="{'invisible': [('state', '=', 'bounce')]}"/>
+                             type="object" states="draft"/>
+                     <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,post,bounce"/>
                  </header>
 
                     <sheet>
@@ -586,7 +586,7 @@
 
                         <group>
                             <group>
-                                <field name="invoice_ids" widget="many2many_tags" domain="[('state','in', ['confirm',''])]"/>
+                                <field name="invoice_ids" widget="many2many_tags" domain="[('state', '=', 'open'),('type', '=', 'out_invoice')]"/>
                             </group>
                         </group>
 

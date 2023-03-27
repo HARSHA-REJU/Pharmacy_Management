@@ -1,19 +1,6 @@
 <openerp>
 	<data>
-<!--		LANDSCAPE VIEW CODE-->
-		<record id="report_paperformat" model="report.paperformat">
-			<field name="name">Landscape</field>
-			<field name="default" eval="True" />
-			<field name="format">A4</field>
-			<field name="orientation">Landscape</field>
-			<field name="margin_top">5</field>
-			<field name="margin_bottom">0</field>
-			<field name="margin_left">15</field>
-			<field name="margin_right">15</field>
-			<field name="header_line" eval="False" />
-			<field name="header_spacing">12</field>
-			<field name="dpi">0</field>
-		</record>
+
 
         <record model="ir.ui.view" id="supplier_invoice_report_wizard_id">
 			<field name="name">supplier.invoice.report</field>

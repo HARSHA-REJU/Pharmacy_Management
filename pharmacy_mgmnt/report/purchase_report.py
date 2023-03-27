@@ -54,15 +54,15 @@ class CustomerInvoiceReport(models.TransientModel):
                  ('invoice_id.date_invoice', '<=', self.date_to),
                  ('invoice_id.type','!=','out_invoice')]
             if self.product:
-                domain += [('product_id', '>=', self.product)]
+                domain += [('product_id', '>=', self.product.id)]
             if self.company:
-                domain += [('product_of', '>=', self.company)]
+                domain += [('product_of', '>=', self.company.id)]
             if self.group:
-                domain += [('medicine_grp', '>=', self.group)]
+                domain += [('medicine_grp', '>=', self.group.id)]
             if self.packing:
-                domain += [('medicine_name_packing', '>=', self.packing)]
+                domain += [('medicine_name_packing', '>=', self.packing.id)]
             if self.potency:
-                domain += [('medicine_name_subcat', '>=', self.potency)]
+                domain += [('medicine_name_subcat', '>=', self.potency.id)]
 
             invoice_lines = self.env['account.invoice.line'].search(domain)
 

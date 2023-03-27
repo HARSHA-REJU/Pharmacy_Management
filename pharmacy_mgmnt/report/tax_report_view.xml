@@ -96,10 +96,10 @@
 									<td style='font-size:15px'><span t-esc="line.invoice_id.bill_nature"/></td>
 									<td style='font-size:15px'><span t-esc="line.invoice_id.number2"/></td>
 									<td style='font-size:15px'><span t-esc="line.invoice_id.res_person.name"/></td>
-									<td style='font-size:15px'><span t-esc="line.amount_amount1"/></td>
-									<t t-set="tax_total" t-value="tax_total+line.amount_amount1" />
-									<td style='font-size:15px'><span t-esc="line.amount_w_tax"/></td>
-									<t t-set="total_amount" t-value="total_amount+line.amount_w_tax" />
+									<td style='font-size:15px'><span t-esc="line.amt_tax"/></td>
+									<t t-set="tax_total" t-value="tax_total+line.amt_tax" />
+									<td style='font-size:15px'><span t-esc="line.amt_w_tax"/></td>
+									<t t-set="total_amount" t-value="total_amount+line.amt_w_tax" />
 
 									<t t-if="o.product">
 										<td style='font-size:15px'><span t-esc="line.quantity"/></td>

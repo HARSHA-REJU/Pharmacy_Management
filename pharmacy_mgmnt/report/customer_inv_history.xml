@@ -14,11 +14,11 @@
 							<field name="date_from"/>
 							<field name="date_to"/>
 						</group>
-						<group>
-							<separator string="OR"/>
+					</group>
+						<separator string="OR"/>
+						<group col="4">
 							<field name="invoices_id"/>
 						</group>
-					</group>
 					<footer>
 						<button name="action_customer_invoice_his_open_window" type="object" string="Open" class="oe_highlight" />
 						<button string="Cancel" class="oe_link" special="cancel" />

@@ -21,7 +21,7 @@ class AccountInvoiceLine(models.Model):
     stock_transfer_id = fields.Many2one('stock.transfer')
     # amount_amount = fields.Float('TAX_AMOUNT', compute="_compute_amount_amount")
     amount_amount = fields.Float('TAX_AMOUNT')
-    amount_amount1 = fields.Float('Tax_amt', )
+    amount_amount1 = fields.Float('Tax_amt', compute="_compute_all", store=True)
     # amount_w_tax = fields.Float('TOTAL_AMT', compute="_compute_amount_with_tax")
     amount_w_tax = fields.Float('Total')
     discount = fields.Float(string='Discount', default=0.0,)
@@ -852,6 +852,7 @@ class AccountInvoiceLine(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
     _rec_name = "number2"
+    _order = "number2 desc"
 
     @api.multi
     def name_get(self):
@@ -863,7 +864,7 @@ class AccountInvoice(models.Model):
         }
         result = []
         for inv in self:
-            result.append((inv.id, "%s %s" % (inv.number2 or TYPES[inv.type], inv.name or '')))
+            result.append((inv.id, "%s %s" % ( TYPES[inv.type],inv.number2 or inv.name or '')))
         return result
 
     @api.model
@@ -1025,7 +1026,7 @@ class AccountInvoice(models.Model):
             'context': context,
         }
 
-    @api.onchange('invoice_line')
+    @api.onchange('invoice_line', 'invoice_line.quantity', 'invoice_line.price_unit', 'invoice_line.discount', 'invoice_line.price_subtotal', 'invoice_line.invoice_line_tax_id4')
     def onchange_credit_limit_checking(self):
         for rec in self:
             if rec.partner_id.customer:
@@ -1039,6 +1040,7 @@ class AccountInvoice(models.Model):
                         #                  _("You must define an analytic journal of type '%s'!") % (journal_type,))
                         raise except_orm(_('Credit Limit Exceeded!'), ('This Customers Credit Limit Amount Rs. ' + str(
                             credit_amount) + '  has been Crossed.' + "\n" 'Check  ' + rec.partner_id.name + 's' + ' Credit Limits'))
+
 
     @api.model
     def create(self, vals):
@@ -1116,14 +1118,6 @@ class AccountInvoice(models.Model):
             'context': {'current_id': self.id},
 
         }
-
-    @api.model
-    def button_validate(self):
-        res = super(AccountInvoice, self).button_validate()
-        if res.partner_id.customer:
-            if res.pay_mode.state == 'credit':
-                print("inside validate")
-        return res
 
         # add custom codes here
 
