@@ -26,7 +26,7 @@ class PartnerPayment(models.Model):
 
     voucher_relation_id = fields.Many2one('account.voucher', required=True)
     res_person_id = fields.Many2one('res.partner', domain=[('res_person_id', '=', True)])
-    partner_id = fields.Many2one('res.partner', domain=[('customer', '=', True)])
+    partner_id = fields.Many2one('res.partner', domain=[('customer', '=', True), ('res_person_id', '=', False)])
     reference_number = fields.Char()
     date = fields.Date()
     payment_method = fields.Selection([('cheque', 'Cheque'), ('cash', 'Cash')], string="Mode of Payment")

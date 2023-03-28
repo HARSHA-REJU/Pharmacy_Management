@@ -6,6 +6,17 @@ class Batches(models.Model):
     _rec_name = 'batch'
 
     batch = fields.Char('Batch')
+    @api.constrains('batch')
+    def _check_batch(self):
+        for record in self:
+            old_record = self.search([('batch', '=', record.batch)])
+            if old_record:
+                raise models.ValidationError('Already Created records for the same Group')
+
+
+    # _sql_constraints = [
+    #     ('batch_name_uniq', 'unique(batch)', 'The name of batch must be unique !'),
+    # ]
 
 
 class MedicineRackSubcat(models.Model):
@@ -14,6 +25,18 @@ class MedicineRackSubcat(models.Model):
 
     medicine_rack_subcat = fields.Char(string="Potency Description")
 
+    @api.constrains('medicine_rack_subcat')
+    def _check_medicine_rack_subcat(self):
+        for record in self:
+            old_record = self.search([('medicine_rack_subcat', '=', record.medicine_rack_subcat)])
+            if old_record:
+                raise models.ValidationError('Potency Already Created')
+
+
+
+    # _sql_constraints = [
+    #     ('potency_name_uniq', 'unique(medicine_rack_subcat)', 'The Potency name must be unique !'),
+    # ]
 
 # TAX-MED-POTENCY-COMBO-RELATION**********************************************************************
 
@@ -27,7 +50,7 @@ class MedPotencyCombo(models.Model):
     hsn = fields.Char(string='HSN')
     company = fields.Many2one('product.medicine.responsible', string="Company",related="medicine.product_of")
     tax = fields.Float(string='Tax')
-
+    
 
 class MedicineGroup(models.Model):
     _name = 'product.medicine.group'
@@ -40,7 +63,19 @@ class MedicineGroup(models.Model):
         string='Potency-Product Link',
         store=True,
     )
+    
+    @api.constrains('med_grp')
+    def _check_medicine_med_grp(self):
+        for record in self:
+            old_record = self.search([('med_grp', '=', record.med_grp)])
+            if old_record:
+                raise models.ValidationError('Group name Already Created')
 
+
+
+    # _sql_constraints = [
+    #     ('med_grp_name_uniq', 'unique(med_grp)', 'The name of Group must be unique !'),
+    # ]
 
 # **********************************************************************************************************
 
@@ -50,13 +85,36 @@ class MedicineTypes(models.Model):
 
     medicine_type = fields.Char(string="Position/Rack")
 
+    # _sql_constraints = [
+    #     ('medicine_type_name_uniq', 'unique(medicine_type)', 'The name of Position/Rack must be unique !'),
+    # ]
+
+    @api.constrains('medicine_type')
+    def _check_medicine_medicine_type(self):
+        for record in self:
+            old_record = self.search([('medicine_type', '=', record.medicine_type)])
+            if old_record:
+                raise models.ValidationError('Group name Already Created')
+
 
 
 class MedicinePacking(models.Model):
     _name = 'product.medicine.packing'
     _rec_name = 'medicine_pack'
 
-    medicine_pack = fields.Char(string="Packing")
+    medicine_pack = fields.Char(string="Packing", unique=True)
+    @api.constrains('medicine_pack')
+    def _check_medicine_pack(self):
+        for record in self:
+            old_record = self.search([('medicine_pack', '=', record.medicine_pack)])
+            if old_record:
+                raise models.ValidationError('Packing name Already Created')
+
+
+    
+    # _sql_constraints = [
+    #     ('medicine_pack_name_uniq', 'unique(medicine_pack)', 'The name of Packing already exists !'),
+    # ]
 
 
 class MedicineResponsible(models.Model):
@@ -65,6 +123,17 @@ class MedicineResponsible(models.Model):
 
     name_responsible = fields.Char(string="Product Of ")
 
+    @api.constrains('name_responsible')
+    def _check_name_responsible(self):
+        for record in self:
+            old_record = self.search([('name_responsible', '=', record.name_responsible)])
+            if old_record:
+                raise models.ValidationError('Company Name Already Created')
+
+    
+    # _sql_constraints = [
+    #     ('name_responsible_name_uniq', 'unique(name_responsible)', 'The name of Company must be unique !'),
+    # ]
 
 class CustomerDiscounts(models.Model):
     _name = 'cus.discount'
@@ -72,7 +141,17 @@ class CustomerDiscounts(models.Model):
 
     cus_dis = fields.Char(string="Discount Category", )
     percentage = fields.Float('Discount In Percentage(%)')
+    #
+    # _sql_constraints = [
+    #     ('cus_dis_name_uniq', 'unique(cus_dis)', 'The name of Discount Category must be unique !'),
+    # ]
 
+    @api.constrains('cus_dis')
+    def _check_name_cus_dis(self):
+        for record in self:
+            old_record = self.search([('cus_dis', '=', record.cus_dis)])
+            if old_record:
+                raise models.ValidationError('Discount Category with same Name Already Created')
 
 
 # New grp
@@ -93,6 +172,17 @@ class TaxComboNew(models.Model):
         string='Potencies',
         store=True,
     )
+
+    @api.constrains('medicine_grp')
+    def _check_name(self):
+        for record in self:
+            old_record = self.search([('medicine_grp', '=', record.medicine_grp)])
+            if old_record:
+                raise models.ValidationError('Already Created records for the same Group')
+
+    # _sql_constraints = [
+    #     ('medicine_grp_name_uniq', 'unique(medicine_grp)', 'The Group must be unique !, Already Created for the Same group'),
+    # ]
 
 
 # class TaxCombo(models.Model):

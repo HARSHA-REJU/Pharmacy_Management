@@ -22,26 +22,28 @@ class ChequeTransactions(models.Model):
     deposit_date = fields.Date('Deposit Date')
     clearance_date = fields.Date('Clearance Date')
     cheque_amount = fields.Float('Cheque Amount', required=1)
+    invoice_amount = fields.Float('Invoice Amount', compute="_get_balace_amt")
     balance = fields.Float('Balance', compute="_get_balace_amt")
     bank = fields.Char('Bank')
     branch = fields.Char('Branch')
     ifsc = fields.Char('IFSC')
-    state = fields.Selection([('draft', 'Draft'), ('post', 'Posted'), ('bounce', 'Bounced'), ]
+    state = fields.Selection([('draft', 'Draft'), ('post', 'Posted'), ('bounce', 'Bounced'),]
                              , required=True, default='draft')
     invoice_ids = fields.Many2many('account.invoice', string="Select Invoices")
 
-    @api.one
-    @api.depends('cheque_amount')
+    @api.depends('cheque_amount','invoice_ids')
     def _get_balace_amt(self):
-        if self.state == 'post':
-            self.balance = self.cheque_amount
-        if self.state == 'bounce':
-            self.balance = 0.0
-
+        for rec in self:
+            if rec.invoice_ids:
+                rec.invoice_amount = sum(rec.invoice_ids.mapped('amount_total'))
+                balance = rec.cheque_amount - rec.invoice_amount
+                if balance<0 :
+                    rec.balance = 0
+                else:
+                    rec.balance = balance
     @api.model
     def create(self, vals):
-        vals['s_no'] = self.env['ir.sequence'].next_by_code(
-            'cheque.entry.sequence')
+        vals['s_no'] = self.env['ir.sequence'].next_by_code('cheque.entry.sequence')
         result = super(ChequeTransactions, self).create(vals)
         return result
 

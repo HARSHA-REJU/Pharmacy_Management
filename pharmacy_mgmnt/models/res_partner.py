@@ -23,6 +23,10 @@ class ResPartner(models.Model):
     cus_title = fields.Many2one('customer.title', "Customer Type")
     cust_area = fields.Many2one('customer.area', "Customer Area")
 
+    _sql_constraints = [
+        ('name_uniq', 'UNIQUE(name)', 'The name of batch must be unique !'),
+    ]
+
     @api.onchange('b2b')
     def _change_boolean_b2b(self):
         for rec in self:
