@@ -886,6 +886,13 @@
             <menuitem id="menu_med_features_2_child"
                       name="Customer Invoices and Stock Entry"
                       sequence="1" parent="menu_med_features_2"/>
+
+               <menuitem action="action_inv_responsible"
+                         id="menu_responsible_persons"
+                         name="Responsible Persons-Sale"
+                         sequence="2"
+                         parent="pharmacy_mgmnt.menu_med_features_2_child"/>
+
                     <menuitem action="action_partner_form" id="menu_customers"
                               name="Retailers/Customers"
                               sequence="1" parent="menu_med_features_2_child"/>
