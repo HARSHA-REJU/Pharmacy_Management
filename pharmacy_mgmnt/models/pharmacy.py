@@ -6,11 +6,12 @@ class Batches(models.Model):
     _rec_name = 'batch'
 
     batch = fields.Char('Batch')
+
     @api.constrains('batch')
     def _check_batch(self):
         for record in self:
             old_record = self.search([('batch', '=', record.batch)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Already Created records for the same Group')
 
 
@@ -29,7 +30,7 @@ class MedicineRackSubcat(models.Model):
     def _check_medicine_rack_subcat(self):
         for record in self:
             old_record = self.search([('medicine_rack_subcat', '=', record.medicine_rack_subcat)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Potency Already Created')
 
 
@@ -68,7 +69,7 @@ class MedicineGroup(models.Model):
     def _check_medicine_med_grp(self):
         for record in self:
             old_record = self.search([('med_grp', '=', record.med_grp)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Group name Already Created')
 
 
@@ -93,7 +94,7 @@ class MedicineTypes(models.Model):
     def _check_medicine_medicine_type(self):
         for record in self:
             old_record = self.search([('medicine_type', '=', record.medicine_type)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Group name Already Created')
 
 
@@ -103,11 +104,12 @@ class MedicinePacking(models.Model):
     _rec_name = 'medicine_pack'
 
     medicine_pack = fields.Char(string="Packing", unique=True)
+
     @api.constrains('medicine_pack')
     def _check_medicine_pack(self):
         for record in self:
             old_record = self.search([('medicine_pack', '=', record.medicine_pack)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Packing name Already Created')
 
 
@@ -127,7 +129,7 @@ class MedicineResponsible(models.Model):
     def _check_name_responsible(self):
         for record in self:
             old_record = self.search([('name_responsible', '=', record.name_responsible)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Company Name Already Created')
 
     
@@ -150,7 +152,7 @@ class CustomerDiscounts(models.Model):
     def _check_name_cus_dis(self):
         for record in self:
             old_record = self.search([('cus_dis', '=', record.cus_dis)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Discount Category with same Name Already Created')
 
 
@@ -177,7 +179,7 @@ class TaxComboNew(models.Model):
     def _check_name(self):
         for record in self:
             old_record = self.search([('medicine_grp', '=', record.medicine_grp.id)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Already Created records for the same Group')
 
     # _sql_constraints = [

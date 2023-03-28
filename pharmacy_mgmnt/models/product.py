@@ -30,7 +30,7 @@ class Medicines(models.Model):
     def _check_name_product(self):
         for record in self:
             old_record = self.search([('name', '=', record.name)])
-            if old_record:
+            if old_record.id:
                 raise models.ValidationError('Product Already Created')
 
 
