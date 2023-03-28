@@ -27,7 +27,7 @@ class ResPartner(models.Model):
     def _check_name_product(self):
         for record in self:
             old_record = self.search([('name', '=', record.name)])
-            if old_record.id:
+            if len(old_record.ids) > 1:
                 raise models.ValidationError('Record Already existing with same name')
 
 
