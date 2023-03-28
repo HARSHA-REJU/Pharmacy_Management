@@ -176,7 +176,7 @@ class TaxComboNew(models.Model):
     @api.constrains('medicine_grp')
     def _check_name(self):
         for record in self:
-            old_record = self.search([('medicine_grp', '=', record.medicine_grp)])
+            old_record = self.search([('medicine_grp', '=', record.medicine_grp.id)])
             if old_record:
                 raise models.ValidationError('Already Created records for the same Group')
 

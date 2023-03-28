@@ -26,6 +26,14 @@ class Medicines(models.Model):
     hsn_code = fields.Char('HSN', )
     # tax_combo = fields.Many2one('tax.combo', 'Tax')
 
+    @api.constrains('name')
+    def _check_name_product(self):
+        for record in self:
+            old_record = self.search([('name', '=', record.name)])
+            if old_record:
+                raise models.ValidationError('Product Already Created')
+
+
 
     @api.onchange('medicine_name_subcat')
     def onchange_ref_id(self):
